@@ -1,0 +1,70 @@
+{% extends "pages/layouts/base.html" %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin-session-style.css' %}">
+{% endblock %}
+
+{% block content %}
+<body>
+
+    {% block sub %}
+    
+    <h2> Advisors </h2>
+    <div id="View" class="filter_box" style="height:20%">
+        <form action="/advisors/" method="POST">
+            {% csrf_token %}
+            <div>
+                <strong>Filter by: </strong>
+                <div>
+                    <span>Staff ID
+                        <input name="advisor_id" type="text">
+                    </span>
+                    <span>First name
+                        <input name="first_name" type="text">
+                    </span>
+                    <span>Last name
+                        <input name="last_name" type="text">
+                    </span>
+                    <span>Faculty
+                        <input name="faculty" type="text">
+                    </span>
+                </div>
+            </div>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    {% endblock %}
+    
+    {% block booking_list %}
+
+    <table id="object_list_table" class="table table-striped object_list_table">
+        <tr>
+            <td> Advisor ID </td>
+            <td> First Name </td>
+            <td> Last Name </td>
+            <td> Faculty </td>
+            <td>  </td>
+        </tr>
+        {% if advisor_list %}
+            {% for advisor in advisor_list %}
+                <tr>
+                    <td> {{ advisor.staff_id }} </td>
+                    <td> {{ advisor.first_name }} </td>
+                    <td> {{ advisor.last_name }} </td>
+                    <td> {{ advisor.faculty }} </td>
+                    <td><a href="/advisors/?advisorid={{ advisor.staff_id }}"> View/Edit </a></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+           <tr><td>
+                <p> No advisors found. </p>
+           </td></tr>
+        {% endif %}
+    </table>
+    {% endblock %}
+</body>
+{% endblock %} 

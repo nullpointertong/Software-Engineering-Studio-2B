@@ -1,0 +1,93 @@
+{% extends "pages/layouts/base.html" %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin-session-style.css' %}">
+    <script src="{% static 'sessions/sessions.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<body>
+
+    {% block sub %}
+    <div style="position:relative; float:right; margin-right:20px;">
+            <span><a class='btn' href="{% url 'create_session' %}">Book session</a></span>
+    </div>
+    
+    <h2>Sessions</h2>
+    <div id="View" class="filter_box" style="height:20%">
+        <form action="/search_sessions/" method="POST">
+            {% csrf_token %}
+            <div>
+                <strong>Filter by: </strong>
+                <div>
+                    <span>Student ID
+                        <input name="student_id" type="text">
+                    </span>
+                    <span>Student first name
+                        <input name="stu_first_name" type="text">
+                    </span>
+                    <span>Student last name
+                        <input name="stu_last_name" type="text">
+                    </span>
+                    <span>Advisor ID
+                        <input name="advisor_id" type="text">
+                    </span>
+                    <span>Advisor first name
+                        <input name="adv_first_name" type="text">
+                    </span>
+                    <span>Advisor last name
+                        <input name="adv_last_name" type="text">
+                    </span>
+                    <span>Date
+                        <input name="date" type="date">
+                    </span>
+                    <span>Start time
+                        <input name="start_time" type="time">
+                    </span>
+                    <span>End time
+                        <input name="end_time" type="time">
+                    </span>
+                </div>
+            </div>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    {% endblock %}
+    
+    {% block booking_list %}
+
+    <table id="object_list_table" class="table table-striped object_list_table">
+        <tr>
+            <td> Student </td>
+            <td> Advisor </td>
+            <td> Date </td>
+            <td> From </td>
+            <td> To </td>
+            <td> Location </td>
+            <td>  </td>
+        </tr>
+        {% if filtered_sessions %}
+            {% for session in filtered_sessions %}
+                <tr>
+                    <td> {{ session.student }} </td>
+                    <td> {{ session.staff }} </td>
+                    <td> {{ session.date }} </td>
+                    <td> {{ session.start_time }} </td>
+                    <td> {{ session.end_time }} </td>
+                    <td> {{ session.location }} </td>
+                    <td><a href="/search_sessions/?sessionid={{ session.session_ID }}"> View/Edit </a></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+           <tr><td>
+                <p> No sessions found. </p>
+           </td></tr>
+        {% endif %}
+    </table>
+    {% endblock %}
+</body>
+{% endblock %} 
