@@ -153,7 +153,6 @@ class StaffAccount(models.Model):
         )
 
 class StudentAccount(models.Model):
-
     student_id = models.PositiveIntegerField(primary_key=True, unique=True)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
@@ -162,6 +161,7 @@ class StudentAccount(models.Model):
     no_show_history = DateListField()
     faculty =  models.CharField(max_length=32)
     course =  models.CharField(max_length=64)
+    preferred_first_name = models.CharField(max_length=64)
     preferred_first_name = models.CharField(max_length=64)
     phone = models.CharField(max_length=12)
     mobile = models.CharField(max_length=12)
@@ -174,7 +174,6 @@ class StudentAccount(models.Model):
     country_of_origin = models.CharField(max_length=30)
     educational_background = models.CharField(max_length=30)
     
-
     def __str__(self):
         return 'ID: {} - {}{}{}'.format(
             self.student_id,
