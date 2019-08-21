@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import logout
-from .models import StudentAccount
+from .models import StudentAccount, Workshop
 from .forms import StudentForm
 
 def login_request(request):
@@ -21,7 +21,7 @@ def submit_profile(request):
     student_first_name = request.POST["student_first_name"]
     student_last_name = request.POST["student_last_name"]
     student_preferred_first_name = request.POST["student_preferred_first_name"]
-    student_preferred_last_name = request.POST["student_preferred_last_name"]
+    #student_preferred_last_name = request.POST["student_preferred_last_name"]
     student_faculty = request.POST["student_faculty"]
     student_course = request.POST["student_course"]
     student_email = request.POST["student_email"]
@@ -45,7 +45,7 @@ def submit_profile(request):
         faculty =  student_faculty,
         course =  student_course,
         preferred_first_name = student_preferred_first_name,
-        preferred_last_name = student_preferred_last_name,
+        #preferred_last_name = student_preferred_last_name,
         phone = student_home_phone,
         mobile = student_mobile,
         best_contact_no = student_best_contactno,
@@ -67,7 +67,11 @@ def bookings(request):
     return render(request, 'pages/layouts/booking.html', context)
 
 def workshops(request):
-    context = {'workshops_page': 'active'}
+    workshops = Workshop.objects.all()
+    context = {
+        'workshops_page': 'active',
+        'workshops': workshops
+    }
     return render(request, 'pages/layouts/workshops.html', context)
 
 def programs(request):
