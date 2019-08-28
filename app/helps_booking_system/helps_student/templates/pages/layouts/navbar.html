@@ -1,5 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">HELPS</a>
+  {% load static %}
+    <a class="navbar-brand" href="/">
+    <img src="{% static 'images/uts_logo_black.png' %}" alt="UTS" style="width:100px;">
+    HELPS
+    </a>
+    {% comment %} <a class="navbar-brand" href="#">HELPS</a> {% endcomment %}
     <div id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item {{ profile_page }}">
