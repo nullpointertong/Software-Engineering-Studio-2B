@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import logout
-from .models import StudentAccount, Workshop
+from .models import StudentAccount, Workshop, Session
 from .forms import StudentForm
+from django.db import connection
+import datetime
 
 def login_request(request):
     context = {'login_request': 'active'}
@@ -63,7 +65,17 @@ def submit_profile(request):
     return render(request,'pages/layouts/profile.html', context)
 
 def bookings(request):
-    context = {'booking_page': 'active'}
+    currentSessions = Session.objects.filter(date__gte=datetime.datetime.now())
+    pastSessions = Session.objects.filter(date__lt=datetime.datetime.now())
+    
+    # with connection.cursor() as cursor:
+    #     # add "where studentid = student currently logged in"
+    #     cursor.execute("SELECT * FROM helps_admin_session")
+    #     columns = [col[0] for col in cursor.description]
+    #     for row in cursor.fetchall():
+    #         sessions.append(dict(zip(columns, row)))
+
+    context = {'booking_page': 'active', 'currentSessions': currentSessions, 'pastSessions': pastSessions}
     return render(request, 'pages/layouts/booking.html', context)
 
 def workshops(request):
