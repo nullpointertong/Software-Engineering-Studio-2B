@@ -113,6 +113,7 @@ class Workshop(models.Model):
     students = models.ManyToManyField('StudentAccount')
     max_students = models.PositiveIntegerField()
     skill_set_name = models.CharField(max_length=64)
+    workshop_files = models.FileField()
     # start_dates = DateListField()
     # end_dates = DateListField()
     # Each workshop should be a separate entity, regardless of whether they are the same skillset
