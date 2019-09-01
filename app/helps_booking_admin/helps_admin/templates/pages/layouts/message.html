@@ -1,5 +1,42 @@
 {% extends "pages/layouts/base.html" %}
 
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin-message-style.css' %}">
+    <script src="{% static 'js/messages.js' %}"></script>
+{% endblock %}
+
+
 {% block content %}
 <h1>Message page</h1>
+
+<p>Here as an admin you can view and edit the messages to be sent to students such as announcements and 
+ programs.
+</p>
+
+
+<div class="row-message">
+        <form action=" " method="POST">
+
+    <div class="column-message" style="background-color:#aaa;">
+      <input class = "enhanceInputHeading" id="textheading1" disabled = "true"  value = "Edit Heading" ></p>
+      <input class = "enhanceInput" id="text1" disabled = "true" value = "Edit Content"></p>
+    </div>
+    <div class="column-message" style="background-color:#bbb;">
+      <input class = "enhanceInputHeading" id="textheading2" disabled = "true" value = "Edit Heading 2"></p>
+      <input class = "enhanceInput"  id="text2" disabled = "true" value = "Edit Content 2"> </p>
+    </div>
+  </form>
+
+  </div>
+
+  <div class="row-message">
+        <input type="submit" value="Submit">
+        <button onclick="undisableTxt();">Edit</button>
+
+  </div>
+
 {% endblock %}
