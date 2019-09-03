@@ -36,7 +36,12 @@
             <br>
             <input id="location_input" value="{{ default_location }}" onchange="
             this.style.color='black';formElementChange();" type="text" name="req_location" placeholder="Enter Location...">
-        
+             <br>
+             <a style="margin-bottom:10px">Select File to Upload</a>
+             <br>
+             <input type="file" name="fileToUpload" id="fileToUpload">
+             <br>
+
         </div>
         {% if not form_valid %}
         <div style="display:block; float:left; position:relative;">
