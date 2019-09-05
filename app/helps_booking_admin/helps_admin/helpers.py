@@ -1,6 +1,5 @@
 from django.core.mail import send_mail
 
-
 def send_email(subject, message, contacts):
     # Send an email
     print('sending')
