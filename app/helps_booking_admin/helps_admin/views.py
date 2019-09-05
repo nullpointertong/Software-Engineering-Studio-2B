@@ -9,12 +9,12 @@ from django.views import generic
 from django.utils.safestring import mark_safe
 from django.utils import timezone
 
-
-from helps_admin.models import Session, StudentAccount, StaffAccount, Workshop
-from helps_admin.cal import Calendar
+from .models import Session, StudentAccount, StaffAccount, Workshop
+from .cal import Calendar
 
 from .forms import BookSessionForm
 from .models import StudentAccount, StaffAccount, Session
+from .helper import send_email
 
 # Create your views here.
 
@@ -400,7 +400,13 @@ def delete_session(request):
                     'session': sessionid,
                     'deleting': False
                 }
+                emailContent = {
+                    'subject' : 'Your UTS HELPS session with {} at {} has been cancelled'.format(session.staff.firstname, session.date), 
+                    'message' : 'Your booked UTS HELPS session on {} in {} with {} has been cancelled'.format(session.date, session.locaton, session.staff.firstname),
+                    'contacts' : session.student.email
+                }
                 session.delete()
+                send_email(emailContent.subject, emailContent.message, emailContent.contacts)
                 return render(request, 'pages/layouts/session_booked.html', context)
             # except Exception as e:
             #     print(e)
@@ -652,5 +658,6 @@ def exit(request):
 def redirect_view(request, path=''):
     response = redirect(path)
     return response
+
 
 
