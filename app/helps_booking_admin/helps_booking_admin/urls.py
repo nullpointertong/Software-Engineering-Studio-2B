@@ -36,5 +36,6 @@ urlpatterns = [
     path('edit_session/', views.edit_session, name='edit_session'),
     path('delete_session/', views.delete_session, name='delete_session'),
     path('create_session/', views.create_session, name='create_session'),
-    path('create_workshop/', views.create_workshop, name='create_workshop')
+    path('create_workshop/', views.create_workshop, name='create_workshop'),
+    path('email/test', views.send_email, name='tetsemail')
 ]
