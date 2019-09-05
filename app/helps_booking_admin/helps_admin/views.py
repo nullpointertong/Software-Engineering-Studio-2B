@@ -14,7 +14,7 @@ from .cal import Calendar
 
 from .forms import BookSessionForm
 from .models import StudentAccount, StaffAccount, Session
-from .helper import send_email
+from .helpers import send_email
 
 # Create your views here.
 

@@ -67,13 +67,6 @@ def submit_profile(request):
 def bookings(request):
     currentSessions = Session.objects.filter(date__gte=datetime.datetime.now())
     pastSessions = Session.objects.filter(date__lt=datetime.datetime.now())
-    
-    # with connection.cursor() as cursor:
-    #     # add "where studentid = student currently logged in"
-    #     cursor.execute("SELECT * FROM helps_admin_session")
-    #     columns = [col[0] for col in cursor.description]
-    #     for row in cursor.fetchall():
-    #         sessions.append(dict(zip(columns, row)))
 
     context = {'booking_page': 'active', 'currentSessions': currentSessions, 'pastSessions': pastSessions}
     return render(request, 'pages/layouts/booking.html', context)
