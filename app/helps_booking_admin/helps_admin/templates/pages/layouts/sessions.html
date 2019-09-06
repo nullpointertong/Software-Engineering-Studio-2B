@@ -6,6 +6,36 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/admin-session-style.css' %}">
     <script src="{% static 'sessions/sessions.js' %}"></script>
+    
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' rel='stylesheet'>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css' rel='stylesheet'>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
+
+    <script>
+        $(document).ready(function() {
+            
+            var theEvents = [{title: "test", start: "2016-12-02", end: "2016-12-02"},{title: "test2", start: "2016-12-03", end: "2016-12-03"}];
+            
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                defaultDate: '2016-12-12',
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: theEvents
+            });
+        });
+    </script>
+
 {% endblock %}
 
 {% block content %}
@@ -89,5 +119,17 @@
         {% endif %}
     </table>
     {% endblock %}
+
+    {% block calendar %}
+    <br/>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="ui sixteen column">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
 </body>
 {% endblock %} 
