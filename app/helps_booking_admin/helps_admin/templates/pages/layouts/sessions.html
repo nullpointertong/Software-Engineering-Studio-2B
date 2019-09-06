@@ -19,19 +19,28 @@
     <script>
         $(document).ready(function() {
             
-            var theEvents = [{title: "test", start: "2016-12-02", end: "2016-12-02"},{title: "test2", start: "2016-12-03", end: "2016-12-03"}];
+            var sessions= [];// = [{title: "test", start: "1019-12-02", end: "1019-12-02"}];
             
+            var sessionTable = document.getElementById("object_list_table");
+
+            for(var i = 1; i < sessionTable.rows.length; i++)
+            {
+                sessions.push({title: sessionTable.rows[i].cells[0].innerHTML + " " + sessionTable.rows[i].cells[1].innerHTML,
+                                start: new Date(sessionTable.rows[i].cells[2].innerHTML)});
+                                //end: sessionsTable.rows[i].cells[4].innerHTML});
+            }
+
             $('#calendar').fullCalendar({
                 header: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'month,basicWeek,basicDay'
                 },
-                defaultDate: '2016-12-12',
+                defaultDate: new Date(),
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
-                events: theEvents
+                events: sessions
             });
         });
     </script>
