@@ -534,6 +534,7 @@ def create_workshop(request):
                 start_time=start_time,
                 end_time=end_time,
                 room=data['req_location'],
+                workshop_files= request.POST["fileToUpload"],
                 no_of_sessions=1,
                 days="")
             context['confirm_text'] = 'Workshop Created Successfully.'
