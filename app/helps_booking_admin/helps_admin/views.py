@@ -355,6 +355,19 @@ def create_session(request):
         cal = SessionConstants.calendar.new_date(d.year, d.month, d.day)
         context['time_selection_visible'] = 'block'
         return render(request, 'pages/layouts/create_session.html', context)
+
+        
+def post_message(request):
+    if request.method == "POST":
+        data = request.POST
+        context = {}
+        context['errors'] = []
+        context['form_valid'] = True
+
+        # Messages Data
+  
+        return render(request, 'pages/layouts/post_message.html', context)
+            
             
 
 def delete_session(request):

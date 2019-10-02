@@ -38,11 +38,15 @@
     function postMessage() {
       var message_heading = document.getElementById("textheading1");
       var message_content = document.getElementById("textarea");
+      var message_dropdown = document.getElementById("message_dropdown")
+      var strSectionChange = message_dropdown.options[message_dropdown.selectedIndex].value;
+
 
       console.log(
         "INPUT CONTENT: ",
         message_heading.value,
-        message_content.value
+        message_content.value, 
+        strSectionChange
       );
 
       var form_incomplete = false;
@@ -67,7 +71,7 @@
     }
 
     function confirmMessage() {
-      var form = document.forms["create_session"];
+      var form = document.forms["post_message"];
       form.submit();
     }
   </script>
@@ -80,7 +84,7 @@
   </p>
 
   <div class="row-message">
-    <select>
+    <select id="message_dropdown">
       <option value="logon">Log on Announcements</option>
       <option value="software">Software Internship Programs</option>
       <option value="engineering">Engineering Programs</option>
@@ -89,7 +93,7 @@
 
   <div class="row-message">
     <form
-      action="/search_sessions/"
+      action="/post_message/"
       method="POST"
       onsubmit="return postMessage();"
     >
@@ -102,7 +106,8 @@
 
         <div>
           <input
-            style="background-color:#FFFFFF; border: 0;"
+            style="background-color:#FFFFFF; border: 0;   width: 100%;
+            "
             class="enhanceInputHeading"
             id="textheading1"
             disabled="true"
