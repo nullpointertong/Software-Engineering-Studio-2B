@@ -68,7 +68,20 @@ def bookings(request):
 
 def workshops(request):
     workshops = Workshop.objects.all()
+    date_context = {'date_filters': []}
+    # If POST, retrieve filters
+    if request.method == "POST":
+        # Retrieve data
+        data = request.POST
+        # Filter workshops by dates (if valid)
+        if data['start_date']:
+            workshops = workshops.filter(end_date__gte=data['start_date'])
+            date_context['date_filters'].append('After: {}'.format(data['start_date']))
+        if data['end_date']:
+            workshops = workshops.filter(start_date__lte=data['end_date'])
+            date_context['date_filters'].append('Before: {}'.format(data['end_date']))
     context = {
+        **date_context,
         'workshops_page': 'active',
         'workshops': workshops
     }
