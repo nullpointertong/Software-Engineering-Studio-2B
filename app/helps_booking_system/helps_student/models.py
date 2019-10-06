@@ -89,8 +89,8 @@ class Session(models.Model):
     )
     location  = models.CharField(max_length=30)
     date = models.DateField()
-    start_time = models.DateTimeField(default=default_start_time)
-    end_time = models.DateTimeField(default=default_start_time)
+    start_time = models.TimeField(default=default_start_time)
+    end_time = models.TimeField(default=default_start_time)
     has_finished  = models.BooleanField()
     no_show = models.BooleanField()
 
