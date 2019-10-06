@@ -27,6 +27,7 @@ urlpatterns = [
     path('bookings/', views.bookings, name='bookings'),
     path('programs/', views.programs, name='programs'),
     path('faq/', views.faq, name='faq'),
-    path('exit/', views.exit, name='exit')
+    path('exit/', views.exit, name='exit'),
+    path('bookings/cancel/', views.cancelSession, name='cancel_session')
 ]
 

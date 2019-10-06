@@ -5,6 +5,7 @@ from .models import StudentAccount, Workshop, Session
 from .forms import StudentForm
 from django.db import connection
 import datetime
+from .helpers import send_email
 
 def login_request(request):
     context = {'login_request': 'active'}
@@ -70,6 +71,20 @@ def bookings(request):
 
     context = {'booking_page': 'active', 'currentSessions': currentSessions, 'pastSessions': pastSessions}
     return render(request, 'pages/layouts/booking.html', context)
+
+def cancelSession(request):
+    print('cancel sessions')
+    sesid = request.GET.get('sessionid', None)
+    session = Session.objects.filter(session_ID=sesid)[0]
+    session.delete()
+    emailContent = {
+    'subject' : 'Your UTS HELPS session with {} on {} {} has been cancelled'.format(session.staff.first_name, session.date.strftime("%d/%m/%y"), session.start_time.strftime('%I:%M %p')), 
+    'message' : 'Your booked UTS HELPS session on {} from {} to {} in {} with {} has been cancelled'.format(session.date.strftime("%d/%m/%y"), session.start_time.strftime('%I:%M %p'), session.end_time.strftime('%I:%M %p'),  session.location, session.staff.first_name),
+    'contacts' : [session.student.email, session.staff.email]
+    }
+    send_email(emailContent['subject'], emailContent['message'], emailContent['contacts'])
+    return redirect('bookings')
+
 
 def workshops(request):
     workshops = Workshop.objects.all()

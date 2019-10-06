@@ -26,7 +26,7 @@
                     <td> {{ session.start_time }} </td>
                     <td> {{ session.end_time }} </td>
                     <td> {{ session.location }} </td>
-                    {% comment %} <td><a href="/search_sessions/?sessionid={{ session.session_ID }}"> View/Edit </a></td> {% endcomment %}
+                    <td><a href="/bookings/cancel?sessionid={{ session.session_ID }}" onclick="return confirm('Are you sure you want to cancel this session?')"> Cancel </a></td>
                 </tr>
                 {% endfor %}
             {% else %}
@@ -56,7 +56,6 @@
                         <td> {{ session.start_time }} </td>
                         <td> {{ session.end_time }} </td>
                         <td> {{ session.location }} </td>
-                        <td><a href="/search_sessions/?sessionid={{ session.session_ID }}"> View/Edit </a></td>
                     </tr>
                 {% endfor %}
             {% else %}
