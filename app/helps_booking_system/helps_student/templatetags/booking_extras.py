@@ -17,3 +17,7 @@ def multiply(value, arg) -> int:
 @register.filter
 def divide(value, arg) -> int:
     return int(value) / int(arg)
+
+@register.filter
+def toString(value) -> str:
+    return str(value)

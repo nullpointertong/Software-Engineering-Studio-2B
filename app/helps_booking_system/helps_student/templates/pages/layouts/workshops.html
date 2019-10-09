@@ -4,9 +4,25 @@
 {% block extra_head %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/student-workshops.css' %}">
+    <!--Prepare to pass workshop context to external js-->
+    <script>
+        var workshops_js = "{{ workshops_for_js|escapejs }}";
+        var workshop_skillsets = "{{ workshops_skills_js|escapejs }}";
+    </script>
+    <script src="{% static 'js/student-workshops.js' %}"></script>
 {% endblock %}
 
 {% block content %}
+<!-- Modal for registering to workshop -->
+<div id="modalQuery" class="modal">
+    <div class="modal-content">
+        <span id="closeBtn" class="close">&times;</span>
+        <!-- Details about the workshop go in here -->
+        <p>Register for workshop <b id="registerConfirm">workshop</b>?</p>
+        <button id="finalRegisterBtn" class="modalRegister">REGISTER</button>
+    </div>
+</div>
+
 <h1>Workshop Registration page</h1>
 <div class="filter_form">
     <form action="/workshops/" method="POST">
@@ -69,7 +85,9 @@
                 {% with num_enrolled=workshop.students.count %}
                     <td>{{ workshop.max_students|subtract:num_enrolled }}</td>
                 {% endwith %}
-                <td>Details..</td>
+                <td>
+                    <button id="{{ workshop.workshop_ID|toString }}" class="registerBtn">Register</button>
+                </td>
             </tr>
         {% endfor %}
     {% else %}
@@ -77,6 +95,5 @@
             <td colspan="10">There are currently no available Workshops.</td>
         </tr>
     {% endif %}
-
-
-</table>{% endblock %}
+</table>
+{% endblock %}

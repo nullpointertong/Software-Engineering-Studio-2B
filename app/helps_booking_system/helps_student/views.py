@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import logout
 from .models import StudentAccount, Workshop
 from .forms import StudentForm
+import json
 
 def login_request(request):
     context = {'login_request': 'active'}
@@ -85,6 +86,9 @@ def workshops(request):
         'workshops_page': 'active',
         'workshops': workshops
     }
+    # Pass content for js
+    context['workshops_for_js'] = [str(workshop.workshop_ID) for workshop in workshops]
+    context['workshops_skills_js'] = [workshop.skill_set_name for workshop in workshops]
     return render(request, 'pages/layouts/workshops.html', context)
 
 def programs(request):
