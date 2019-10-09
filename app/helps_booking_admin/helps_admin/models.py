@@ -56,7 +56,8 @@ class DateListField(models.Field):
 
     def get_prep_value(self, value):
         # Return comma separated string of datetimes
-        return ','.join([x.strftime('%d-%m-%Y %H:%M:%S') for x in value])
+        if value is not None:
+            return ','.join([x.strftime('%d-%m-%Y %H:%M:%S') for x in value])
 
     def from_db_value(self, value, expression, connection):
         if value is None:
@@ -133,25 +134,25 @@ class Workshop(models.Model):
 ])
 class StaffAccount(models.Model):
 
-    staff_id = models.CharField(max_length=8, primary_key=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email  = models.EmailField()
-    session_history = DateListField()
+    staff_id = models.CharField(max_length=8, primary_key=True,default=0)
+    first_name = models.CharField(max_length=30, default="placeholder")
+    last_name = models.CharField(max_length=30, default="placeholder")
+    email  = models.EmailField(default="utsemailplaceholder")
+    session_history = DateListField(default=00000000)
     # staff_role = models.CharField(max_length=12)
-    faculty =  models.CharField(max_length=30)
-    course =  models.CharField(max_length=30)
-    preferred_first_name = models.CharField(max_length=64)
-    phone = models.CharField(max_length=12)
-    mobile = models.CharField(max_length=12)
-    best_contact_no = models.CharField(max_length=12)
-    DOB = models.DateField()
-    gender = models.CharField(max_length=24)
-    degree = models.CharField(max_length=64)
-    status = models.CharField(max_length=64)
-    first_language = models.CharField(max_length=32)
-    country_of_origin = models.CharField(max_length=64)
-    educational_background = models.CharField(max_length=64)
+    faculty =  models.CharField(max_length=30,default=0)
+    course =  models.CharField(max_length=30,default=0)
+    preferred_first_name = models.CharField(max_length=64,default="firstnameplaceholder")
+    phone = models.CharField(max_length=12,default="00")
+    mobile = models.CharField(max_length=12,default="00")
+    best_contact_no = models.CharField(max_length=12,default="00")
+    DOB = models.DateField(default=000000)
+    gender = models.CharField(max_length=24,default="placeholder")
+    degree = models.CharField(max_length=64,default="placeholder")
+    status = models.CharField(max_length=64,default="placeholder")
+    first_language = models.CharField(max_length=32,default="placeholder")
+    country_of_origin = models.CharField(max_length=64,default="placeholder")
+    educational_background = models.CharField(max_length=64,default="placeholder")
 
     def __str__(self):
         return '{1} {2} {3} ({0})'.format(

@@ -602,6 +602,58 @@ def advisors(request):
     }
     return render(request, 'pages/layouts/advisors.html', context)
 
+def create_advisor(request):
+    print("DEBUG FORM ADDED")
+    #Debug message
+    #SQL Query to retrieve current Student ID - temp field:
+
+    if(request.GET.get('mybtn')):
+    #A stands for Advisor i.e Astaff is Advisor Staff
+        Astaff_id = request.POST.get("staff_id")
+        Afirst_name = request.POST.get("first_name")
+        Alast_name = request.POST.get("last_name")
+        Aemail = request.POST.get("email")
+        Asession_history = request.POST.get("session_history")
+        Afaculty = request.POST.get("faculty")
+        Acourse = request.POST.get("course")
+        Apreferred_first_name = request.POST.get("preferred_first_name")
+        Aphone = request.POST.get("phone")
+        Amobile = request.POST.get("mobile")
+        Abest_contact_no = request.POST.get("best_contact_no")
+        ADOB = request.POST.get("DOB")
+        Agender = request.POST.get("gender")
+        Adegree = request.POST.get("degree")
+        Astatus = request.POST.get("status")
+        Afirst_language = request.POST.get("first_language")
+        Acountry_of_origin = request.POST.get("country_of_origin")
+        Aeducational_background = request.POST.get("educational_background")
+
+        
+        staff_account = StaffAccount(
+        staff_id = Astaff_id, 
+        first_name = Afirst_name,
+        last_name = Alast_name,
+        email = Aemail,
+        session_history =Asession_history,
+        faculty = Afaculty,
+        course = Acourse,
+        preferred_first_name = Apreferred_first_name,
+        phone = Aphone,
+        mobile = Amobile,
+        best_contact_no = Abest_contact_no,
+        DOB = ADOB,
+        gender = Agender,
+        degree =Adegree,
+        status = Astatus,
+        first_language = Afirst_language,
+        country_of_origin = Acountry_of_origin,
+        educational_background = Aeducational_background
+        )
+        staff_account.save()
+
+    context = {'create_advisor_page': 'active'}
+    return render(request, 'pages/layouts/create_advisor.html', context)
+
 def students(request):
     context = {'students_page': 'active'}
     student_list = StudentAccount.objects.all()
