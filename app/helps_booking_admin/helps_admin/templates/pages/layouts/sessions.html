@@ -25,8 +25,36 @@
 
             for(var i = 1; i < sessionTable.rows.length; i++)
             {
-                sessions.push({title: sessionTable.rows[i].cells[0].innerHTML + " " + sessionTable.rows[i].cells[1].innerHTML,
-                                start: new Date(sessionTable.rows[i].cells[2].innerHTML)});
+                var theTime = sessionTable.rows[i].cells[3].innerHTML; //from column
+                var theDate = new Date(sessionTable.rows[i].cells[2].innerHTML); //date column
+
+                //get start time from column
+                if (theTime.includes("p.m.")) {
+                    var start = theTime.search((new Date()).getFullYear()) + 5;
+                    var end = theTime.search("p.m.");
+                    var hour = parseInt(theTime.substring(start, end));
+                    start = theTime.search(":");
+                    var minutes = start > -1 ? parseInt(theTime.substring(start + 1, end)) : 0
+                    theDate.setHours(hour + 12);
+                    theDate.setMinutes(minutes);
+                }
+                else if (theTime.includes("a.m.")) {
+                    var start = theTime.search((new Date()).getFullYear()) + 5;
+                    var end = theTime.search("a.m.");
+                    var hour = parseInt(theTime.substring(start, end));
+                    start = theTime.search(":");
+                    var minutes = start > -1 ? parseInt(theTime.substring(start + 1, end)) : 0
+                    theDate.setHours(hour);
+                    theDate.setMinutes(minutes);
+                }
+                else if (theTime.includes("noon")) {
+                    theDate.setHours(12);
+                }
+
+                // title = advisor, student, location
+                sessions.push({title: sessionTable.rows[i].cells[1].innerHTML + " " + sessionTable.rows[i].cells[0].innerHTML + " " + sessionTable.rows[i].cells[5].innerHTML,
+                                start: theDate});
+                                //start: new Date(sessionTable.rows[i].cells[2].innerHTML)});
                                 //end: sessionsTable.rows[i].cells[4].innerHTML});
             }
 
