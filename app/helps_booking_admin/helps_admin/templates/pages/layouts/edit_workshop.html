@@ -1,0 +1,97 @@
+{% extends "pages/layouts/base.html" %}
+
+{% block content %}
+<body onload="setTime();">
+    {% load static %}
+    <script src="{% static 'js/Workshop.js/' %}"></script>
+    
+    <div style="margin-left: 10px;margin-bottom: 10px">
+        <h1>Edit Workshop</h1>
+    </div>
+    <div style="width:100%;">
+        <form id="create_workshop" action="/edit_workshop/" onsubmit="return book();" method="POST">
+            {% csrf_token %}
+        <div style="float:left; margin-left:10px; margin-bottom:10px;position:relative">
+            <a style="margin-bottom:10px">Student</a>
+            <br>
+            <input id="student_search" value="{{ default_student }}" onchange="
+            this.style.color='black';formElementChange();" type="text" placeholder="Enter Student ID..." name="req_student_id">
+            <strong style="display:block;{{ student_info_color }}">{{ student_info }}</strong>
+            <br>
+            <a style="margin-bottom:10px">Advisor</a>
+            <br>
+            <input id="advisor_search" value="{{ default_advisor }}" onchange="
+            this.style.color='black';formElementChange();" type="text" name="req_advisor_id" placeholder="Enter Staff ID...">
+            <strong style="display:block;{{ advisor_info_color }}">{{ advisor_info }}</strong>
+            <a style="margin-bottom:10px">Location</a>
+            <br>
+            <input id="location_input" value="{{ default_location }}" onchange="
+            this.style.color='black';formElementChange();" type="text" name="req_location" placeholder="Enter Location...">
+        
+        </div>
+        {% if not form_valid %}
+        <div style="display:block; float:left; position:relative;">
+            {{ calendar }}
+        </div>
+        {% endif %}
+        <div id="sess_time_select" style="float:left; display:{{ time_selection_visible }}; margin-left:15px; position:relative">
+            <div style="display:inline-block">
+                <a>Date: </a>
+                <br>
+                <input id="date" type="date" value="{{ default_date }}" onchange="formElementChange();" name="req_sess_date" required>
+            </div>
+            <div onchange="document.getElementById('time_error').style.display='none';">
+                <a>From: </a>
+                <select onchange="formElementChange();" selected="{{ default_sh }}" id="hour-start" name="req_sess_sh" class="input-small">
+                    {{ opt_hours }}
+                </select>
+                :
+                <select onchange="formElementChange();" selected="{{ default_sm }}" id="min-start" name="req_sess_sm" class="input-small">
+                    {{ opt_minutes }}
+                </select>
+                <em id="start_time_disp"></em>
+            </div>
+            <div onchange="document.getElementById('time_error').style.display='none';">
+                <a>To:</a>
+                <select onchange="formElementChange();" selected="{{ default_eh }}" id="hour-end" name="req_sess_eh" class="input-small">
+                    {{ opt_hours_1 }}
+                </select>
+                :
+                <select onchange="formElementChange();" selected="{{ default_em }}" id="min-end" name="req_sess_em" class="input-small">
+                    {{ opt_minutes_1 }}
+                </select>
+                <em id="end_time_disp"></em>
+            </div>
+            <p id="time_error" style="display:none; color:red;">Starting time must be before ending time!</p>
+            <div>
+                <input id='confirm_hidden' type="hidden" name="confirm_booking" value="no" />
+                <input id='editing_booking' type="hidden" name="edit_booking" value="{{ form_type }}" />
+                <input id='session_id' type="hidden" name="session_id" value="{{ session }}" />
+                <button class="btn" id="check-button" style="margin:10px; position:relative">Check validity</button>
+                <br>
+                {% if not clean_page %}
+                {% if form_valid %}
+                <div id='booking_span'>
+                    <span>Press "Update" to confirm your changes.</span>
+                    <button class="btn" type=button onclick="confirmBooking();" style="margin:10px; position:relative">Update</button>
+                    
+                </div>
+                {% else %}
+                <table style="display:flex;position:relative;background-color:khaki;float: none"><th>INVALID BOOKING<th>
+                    {% for e in errors %}
+                    <tr><td style="color:red">{{ e }}</td></tr>
+                    {% endfor %}
+                </table>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </form> 
+    <form id="delete_session" style="display:inline-block; float:right;" action="/delete_session/" method="POST">{% csrf_token %}
+        <button type=submit class="btn" style="margin:10px; position:relative; background-color: red;">Delete booking</button>
+        <input id='session_id' type="hidden" name="session_id" value="{{ session }}" />
+    </form>
+    </div>
+    
+</body>
+{% endblock %} 
