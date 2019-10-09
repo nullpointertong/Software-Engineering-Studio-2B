@@ -36,6 +36,7 @@ urlpatterns = [
     path('exit/', views.exit, name='exit'),
     path('search_sessions/', views.search_sessions, name='search_sessions'),
     path('edit_session/', views.edit_session, name='edit_session'),
+    path('edit_workshop/', views.edit_workshop, name='edit_workshop'),
     path('delete_session/', views.delete_session, name='delete_session'),
     path('create_session/', views.create_session, name='create_session'),
     path('create_workshop/', views.create_workshop, name='create_workshop')
