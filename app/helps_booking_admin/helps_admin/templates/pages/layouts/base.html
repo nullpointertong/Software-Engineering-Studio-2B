@@ -36,7 +36,7 @@
     {% include 'pages/layouts/navbar.html' %}
     <div style="padding-left:10px">
       {% if user.is_authenticated %}
-        <p>Welcome, {{ user.get_username }}</p>  
+        <p style="color: #4E9CAF">Welcome, {{ user.get_username }}</p>  
         {% block content %}{% endblock %}
       {% else %}
       <div class="loginpage">
