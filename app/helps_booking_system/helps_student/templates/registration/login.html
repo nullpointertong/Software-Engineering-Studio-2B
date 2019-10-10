@@ -1,6 +1,82 @@
-<h2>Login</h2>
-<form method="post">
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+   
+</head>
+<p class="top" > WELCOME TO </p>
+<h2> UTS HELPS </h2>
+<form method="post" class="form-login">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
 </form>
+
+
+<style>
+
+body { 
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),
+     url('https://images.wallpaperscraft.com/image/laptop_room_on_the_desk_keyboard_mouse_apple_window_interior_73963_1920x1080.jpg');
+  }
+
+  .top {
+    text-align: center;
+    color: red;
+    margin-top: 10%;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 36px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+  }
+
+  button {
+    margin-top: 10px;
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    border: 2px solid #f44336;
+  }
+
+  button:hover {
+    background-color: white;
+    color: #f44336;
+  }
+
+  .form-login {
+    text-align: center;
+    margin-top: 10px;
+    
+
+  }
+
+  input {
+    border: 2px solid black;
+    border-radius: 4px;
+  }
+
+  p {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:  bold; 
+  }
+
+  label {
+    font-weight: bold;
+    color: white;
+  }
+
+</style>

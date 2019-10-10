@@ -8,16 +8,24 @@
 
 <style> 
 .topright {
-  position: absolute;
-  top: 277px;
-  right: 400px;
+  position: relative;
+  top: -608px;
+  float: right;
   font-size: 18px;
+  margin-right: 10%;
 }
+.formtext{
+    font-weight: bold;
+
+}
+
+
+
 </style>
 
 <!-- CSS Posiitioning Code -->
 
-<form method = "POST" action = "/accounts/submit_profile/">
+<form method = "POST" action = "/accounts/submit_profile/" class="formtext"> 
 
     {%  csrf_token %}
     {{form.p}}
@@ -605,7 +613,7 @@
 
 
 <br/>
-<input type="Submit" name="btnUpdate" value="Update" id="btnUpdate">
+<input type="Submit" name="btnUpdate" value="Update" id="btnUpdate" style="margin-left: 5px; width: 160px; height: 50px; background: #4E9CAF; color: white;">
 <br/>
 <br/>
 <p>When you submit your writing to us, we would like to use it (after removing any of your personal details) for educational or research purposes. 
