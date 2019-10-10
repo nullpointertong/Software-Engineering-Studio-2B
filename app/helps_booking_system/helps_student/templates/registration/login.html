@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html>
     <h1>Login</h1>
-<div class='login-box'>
+<div class='container'>
   
  
 <form method="post">
-    <div class='textbox'>
+    <div class='login-box'>
+      <br>
   {% csrf_token %}
+  <br>
   {{ form.as_p }}
-
+<br>
 
   <button class="btn" type="submit">Login</button>
-</div>
+    </div>
 
 
-
-    <div class='cover'>
-        <img src="bgDark.jpg">
-        </div>
-
-
-
-        </form>
+</form>
         </div>
 </body>
 </html>
@@ -33,19 +28,20 @@ body {
   margin: 80px;
   padding: 0;
   font-family: sans-serif;
-  /* background: url(bgDark.jpg) no-repeat; */
-  /* background-image: url("/bgDark.jpg"); */
   background-size: cover;
-  /* background-color: black; */
+
   
 }
-.login-box {
+.container {
   width: 280px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  padding: 40px;
+  color: #F52F47;
+
 }
 
 h1 {
@@ -59,28 +55,60 @@ h1 {
 
 }
 
-.textbox {
+.login-box {
   width: 100%;
   overflow: hidden;
   font-size: 20px;
-  padding: 8px 0;
-  margin: 8px 0;
-  border-bottom: 1px solid #F52F47  ;
-  background: none;
+  padding: 50px 0;
+  margin:auto;
+  margin-top: 80px;
+  
+  border-bottom: 7px solid #F52F47  ;
+
   color: black;
   font-size: 18px;
+  width: 440px;
+
+ 
 }
 
 .btn{
-  width: 100%;
-  background: #F52F47;
-  border: 2px solid #F52F47  ;
-  color: black;
-  padding: 5px;
-  font-size: 18px;
+
+  border: none;
+  width: 190px;
+  background: white;
+  color: #F52F47;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  border-radius: 15px;
   cursor: pointer;
-  margin: 17px 0;
   font-weight: bold;
+  margin-left: 110px;
+
+}
+
+
+.btn:hover{
+  color: white;
+  background-color: #F52F47;
+}
+.login-box input{
+  width: 240px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: 'Play', sans-serif;
+  font-size: 16px;
+  font-weight: 200px;
+  padding: 10px 0;
+  transition: border 0.5s;
+  outline: none;
+  color: black;
+}
+.login-box label{
+  margin-right: 10px;
 
 }
 </style>
