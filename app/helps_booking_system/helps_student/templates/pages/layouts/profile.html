@@ -1,8 +1,8 @@
 
 <p>{% extends "pages/layouts/base.html" %} {% block content %}</p>
-<h1>Profile page</h1>
+<h1 style="text-align: center">Profile page</h1>
 <br />
-<p>This page displays your profile. Please update it whenever necessary (especially your contact details).
+<p style="text-align: center">This page displays your profile. Please update it whenever necessary (especially your contact details).
 <br />Questions marked with an asterisk (*) are compulsory. </p>
 <br />
 
@@ -12,29 +12,33 @@
   top: 277px;
   right: 400px;
   font-size: 18px;
+
+
 }
+
+
 </style>
 
 <!-- CSS Posiitioning Code -->
 
-<form method = "POST" action = "/accounts/submit_profile/">
+<form method = "post" action = "/accounts/submit_profile/">
 
     {%  csrf_token %}
     {{form.p}}
 
-<p align="centre">
+<p>
     Student First Name:&nbsp;
     <input type="text" value="" name = "student_first_name"/>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
     Student Last Name:&nbsp;
-    <input type="text" value="" name = "student_last_name" /></p>
+    <input type="text" value="" name = "student_last_name"/></p>
 
-<p align="centre">
+<p>
     Preferred First Name:&nbsp;
     <input type="text" value="" name = "student_preferred_first_name"/>
     &nbsp; &nbsp; &nbsp; &nbsp;
     Preferred Last Name:&nbsp;
-    <input type="text" value="" name = "student_preferred_last_name" /></p>
+    <input type="text" value="" name = "student_preferred_last_name"/></p>
 
 
 <p>Student ID:&nbsp;
@@ -70,7 +74,7 @@
     </select>
     </p>
 <p>Degree*:&nbsp;
-    <select name = "student_degree" required>
+    <select name = "student_degree" required > 
     <option value="Undergraduate">Undergraduate</option>
     <option value="Postgraduate">Postgraduate</option>
     </select>
@@ -562,8 +566,10 @@
         <option value="Zulu">Zulu</option>
         
     </select>&nbsp;
-</p>
+</p></form> 
 
+
+<form>
 <div class="topright"> <p>Educational Backgound:</p>
             <table border="0">
             <tbody><tr>
