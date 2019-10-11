@@ -18,6 +18,10 @@
   {% load static %}
 
   <script>
+    $(document).ready(function() {
+      $("message_table").DataTable();
+    });
+
     function disableTxt() {
       document.getElementById("textarea").disabled = true;
       document.getElementById("textheading1").disabled = true;
@@ -38,14 +42,14 @@
     function postMessage() {
       var message_heading = document.getElementById("textheading1");
       var message_content = document.getElementById("textarea");
-      var message_dropdown = document.getElementById("message_dropdown")
-      var strSectionChange = message_dropdown.options[message_dropdown.selectedIndex].value;
-
+      var message_dropdown = document.getElementById("message_dropdown");
+      var strSectionChange =
+        message_dropdown.options[message_dropdown.selectedIndex].value;
 
       console.log(
         "INPUT CONTENT: ",
         message_heading.value,
-        message_content.value, 
+        message_content.value,
         strSectionChange
       );
 
@@ -66,12 +70,15 @@
 
       if (form_incomplete) {
         alert("Please check your input!");
+        return !form_incomplete;
+      } else {
+        confirmMessage();
       }
-      return !form_incomplete;
     }
 
     function confirmMessage() {
-      var form = document.forms["post_message"];
+      alert("Message Submitted");
+      var form = document.forms["confirm_message"];
       form.submit();
     }
   </script>
@@ -93,9 +100,10 @@
 
   <div class="row-message">
     <form
-      action="/post_message/"
+      action="/message/"
       method="POST"
       onsubmit="return postMessage();"
+      id="post_message"
     >
       <div
         id="background"
