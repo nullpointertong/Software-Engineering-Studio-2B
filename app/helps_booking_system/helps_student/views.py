@@ -3,11 +3,13 @@ from django.http import HttpResponse
 from django.contrib.auth import logout
 from .models import StudentAccount, Workshop, Session
 from .forms import StudentForm
+
 from django.db import connection
 import datetime
 from .helpers import send_email
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+import json
 
 
 def login_request(request):
@@ -102,10 +104,26 @@ def cancelSession(request):
 
 def workshops(request):
     workshops = Workshop.objects.all()
+    date_context = {'date_filters': []}
+    # If POST, retrieve filters
+    if request.method == "POST":
+        # Retrieve data
+        data = request.POST
+        # Filter workshops by dates (if valid)
+        if data['start_date']:
+            workshops = workshops.filter(end_date__gte=data['start_date'])
+            date_context['date_filters'].append('After: {}'.format(data['start_date']))
+        if data['end_date']:
+            workshops = workshops.filter(start_date__lte=data['end_date'])
+            date_context['date_filters'].append('Before: {}'.format(data['end_date']))
     context = {
+        **date_context,
         'workshops_page': 'active',
         'workshops': workshops
     }
+    # Pass content for js
+    context['workshops_for_js'] = [str(workshop.workshop_ID) for workshop in workshops]
+    context['workshops_skills_js'] = [workshop.skill_set_name for workshop in workshops]
     return render(request, 'pages/layouts/workshops.html', context)
 
 

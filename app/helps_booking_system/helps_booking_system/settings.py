@@ -149,6 +149,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
+
     os.path.join(BASE_DIR, "helps_student/static"),
     '/var/www/static/',
     'http://static.example.com/'
@@ -160,3 +161,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'softwarestudio2ab@gmail.com'
 EMAIL_HOST_PASSWORD = 'test1234$#@!'
+
