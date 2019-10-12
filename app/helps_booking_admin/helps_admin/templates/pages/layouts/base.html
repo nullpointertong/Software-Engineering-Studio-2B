@@ -31,49 +31,19 @@
     
 </head>
 <body>
-  
     
     {% include 'pages/layouts/navbar.html' %}
     <div style="padding-left:10px">
       {% if user.is_authenticated %}
-        <p style="color: #4E9CAF">Welcome, {{ user.get_username }}</p>  
+        <p>Welcome, {{ user.get_username }}</p>  
         {% block content %}{% endblock %}
       {% else %}
-      <div class="loginpage">
-        <p class="login"><a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
-        <p style="color: white;">Please log in to see the content of this page.</p>
+        <p><a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
+        <p>Please log in to see the content of this page.</p>
       {% endif %}
     </div>
-  </div>
+
 </body>
 
-<div class="returnhome"><a href="/">Return to home</a></div>
+<div style="display:relative; float:inline-end; margin-left:20px; margin-right:20px; margin-bottom:20px"><a href="/">Return to home</a></div>
 </html>
-
-
-<style>
-   body { 
-    background-image: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-     url('https://images.wallpaperscraft.com/image/laptop_room_on_the_desk_keyboard_mouse_apple_window_interior_73963_1920x1080.jpg');
-  }
-
-  p {
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-  }
-  .returnhome{ 
-    text-align: center;
-  }
-
-  .login {
-
-    margin-top: 10%;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-</style>
