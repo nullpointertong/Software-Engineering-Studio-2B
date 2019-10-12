@@ -1,6 +1,115 @@
-<h2>Login</h2>
+<!DOCTYPE html>
+<html>
+    <h1>Login</h1>
+<div class='container'>
+  
+ 
 <form method="post">
+    <div class='login-box'>
+      <br>
   {% csrf_token %}
+  <br>
   {{ form.as_p }}
-  <button type="submit">Login</button>
+<br>
+
+  <button class="btn" type="submit">Login</button>
+    </div>
+
+
 </form>
+        </div>
+</body>
+</html>
+
+
+<style>
+ 
+body {
+  margin: 80px;
+  padding: 0;
+  font-family: sans-serif;
+  background-size: cover;
+
+  
+}
+.container {
+  width: 280px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding: 40px;
+  color: #F52F47;
+
+}
+
+h1 {
+  float: left;
+  font-size: 45px;
+  border-bottom: 6px solid #F52F47  ;
+  margin-bottom: 50px;
+  padding: 13px 0;
+  position: relative;
+
+
+}
+
+.login-box {
+  width: 100%;
+  overflow: hidden;
+  font-size: 20px;
+  padding: 50px 0;
+  margin:auto;
+  margin-top: 80px;
+  
+  border-bottom: 7px solid #F52F47  ;
+
+  color: black;
+  font-size: 18px;
+  width: 440px;
+
+ 
+}
+
+.btn{
+
+  border: none;
+  width: 190px;
+  background: white;
+  color: #F52F47;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 110px;
+
+}
+
+
+.btn:hover{
+  color: white;
+  background-color: #F52F47;
+}
+.login-box input{
+  width: 240px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  font-family: 'Play', sans-serif;
+  font-size: 16px;
+  font-weight: 200px;
+  padding: 10px 0;
+  transition: border 0.5s;
+  outline: none;
+  color: black;
+}
+.login-box label{
+  margin-right: 10px;
+
+}
+</style>
+
