@@ -15,8 +15,8 @@
             <a class='btn' href="{% url 'create_workshop' %}"><span>Add workshop</span></a>
     </div>
     
-    <h1>Workshops</h1>
-    <div id="View" class="filter_box" style="height:20%">
+    <h1 style="color: white;">Workshops</h1>
+    <div id="View" class="filter_box" style="height:20%; color: white;">
         <form action="/workshops/" method="POST">
             {% csrf_token %}
             <div>

@@ -16,13 +16,13 @@
             <span><a class='btn' href="{% url 'create_session' %}">Book session</a></span>
     </div>
     
-    <h2>Sessions</h2>
+    <h2 style="color: white;">Sessions</h2>
     <div id="View" class="filter_box" style="height:20%">
         <form action="/search_sessions/" method="POST">
             {% csrf_token %}
             <div>
-                <strong>Filter by: </strong>
-                <div>
+                <strong style="color: white;">Filter by: </strong>
+                <div style="color: white;">
                     <span>Student ID
                         <input name="student_id" type="text">
                     </span>
