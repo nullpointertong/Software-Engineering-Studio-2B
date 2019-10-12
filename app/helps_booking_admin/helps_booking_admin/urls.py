@@ -39,8 +39,12 @@ urlpatterns = [
     path('delete_session/', views.delete_session, name='delete_session'),
     path('create_session/', views.create_session, name='create_session'),
     path('create_workshop/', views.create_workshop, name='create_workshop'),
+<<<<<<< HEAD
     path('create_advisor/', views.create_advisor, name='create_advisor')
 
+=======
+    path('email/test', views.send_email, name='tetsemail')
+>>>>>>> origin/Luke-Kokoftopoulos
 ]
 
 if settings.DEBUG:
