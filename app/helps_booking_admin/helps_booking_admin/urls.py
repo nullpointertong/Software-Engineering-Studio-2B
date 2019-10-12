@@ -40,7 +40,7 @@ urlpatterns = [
     path('create_session/', views.create_session, name='create_session'),
     path('create_workshop/', views.create_workshop, name='create_workshop'),
     path('create_advisor/', views.create_advisor, name='create_advisor'),
-    path('email/test', views.send_email, name='tetsemail')
+    path('email/test', views.send_email, name='testemail')
 ]
 
 if settings.DEBUG:

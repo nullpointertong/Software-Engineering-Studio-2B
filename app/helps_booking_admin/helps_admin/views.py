@@ -15,6 +15,9 @@ from helps_admin.cal import Calendar
 
 from .forms import BookSessionForm
 from .models import StudentAccount, StaffAccount, Session
+from .helpers import send_email
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your views here.
 
@@ -401,6 +404,16 @@ def delete_session(request):
                     'deleting': False
                 }
                 session.delete()
+                html_message = render_to_string('email/email.html', {'date': session.date.strftime("%d/%m/%y"), 'starttime': session.start_time.strftime(
+                    '%I:%M %p'), 'endtime': session.end_time.strftime('%I:%M %p'), 'location': session.location, 'staffname': session.staff.first_name, 'word': 'cancelled'})
+                plain_message = strip_tags(html_message)
+                emailContent = {
+                    'subject': 'Your UTS HELPS session with {} on {} {} has been cancelled'.format(session.staff.first_name, session.date.strftime("%d/%m/%y"), session.start_time.strftime('%I:%M %p')),
+                    'html_message': html_message,
+                    'plain_message': plain_message,
+                    'contacts': [session.student.email, session.staff.email]
+                }
+                send_email(emailContent)
                 return render(request, 'pages/layouts/session_booked.html', context)
             # except Exception as e:
             #     print(e)
