@@ -57,7 +57,7 @@ class DateListField(models.Field):
     def get_prep_value(self, value):
         # Return comma separated string of datetimes
         if value is not None:
-            return ','.join([x.strftime('%d-%m-%Y %H:%M:%S') for x in value])
+            return ','.join([x.strftime('%d-%m-%Y %H:%M:%S') for x in (value,)])
 
     def from_db_value(self, value, expression, connection):
         if value is None:
