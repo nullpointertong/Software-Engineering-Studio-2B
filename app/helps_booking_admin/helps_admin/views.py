@@ -15,6 +15,9 @@ from helps_admin.cal import Calendar
 
 from .forms import BookSessionForm
 from .models import StudentAccount, StaffAccount, Session
+from .helpers import send_email
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your views here.
 
@@ -427,6 +430,16 @@ def delete_session(request):
                     'deleting': False
                 }
                 session.delete()
+                html_message = render_to_string('email/email.html', {'date': session.date.strftime("%d/%m/%y"), 'starttime': session.start_time.strftime(
+                    '%I:%M %p'), 'endtime': session.end_time.strftime('%I:%M %p'), 'location': session.location, 'staffname': session.staff.first_name, 'word': 'cancelled'})
+                plain_message = strip_tags(html_message)
+                emailContent = {
+                    'subject': 'Your UTS HELPS session with {} on {} {} has been cancelled'.format(session.staff.first_name, session.date.strftime("%d/%m/%y"), session.start_time.strftime('%I:%M %p')),
+                    'html_message': html_message,
+                    'plain_message': plain_message,
+                    'contacts': [session.student.email, session.staff.email]
+                }
+                send_email(emailContent)
                 return render(request, 'pages/layouts/session_booked.html', context)
             # except Exception as e:
             #     print(e)
@@ -560,6 +573,7 @@ def create_workshop(request):
                 start_time=start_time,
                 end_time=end_time,
                 room=data['req_location'],
+                workshop_files= request.POST["fileToUpload"],
                 no_of_sessions=1,
                 days="")
             context['confirm_text'] = 'Workshop Created Successfully.'
@@ -626,6 +640,58 @@ def advisors(request):
         'advisor_list': advisor_list
     }
     return render(request, 'pages/layouts/advisors.html', context)
+
+def create_advisor(request):
+    #Debug message
+    #SQL Query to retrieve current Student ID - temp field:
+
+    if request.method == 'POST':
+        if request.POST.get("btnUpdate"):
+            print("DEBU G FORM ADDED")
+            #A stands for Advisor i.e Astaff is Advisor Staff
+            Astaff_id = request.POST.get("staff_id")
+            Afirst_name = request.POST.get("first_name")
+            Alast_name = request.POST.get("last_name")
+            Aemail = request.POST.get("email")
+            Asession_history = request.POST.get("session_history")
+            Afaculty = request.POST.get("faculty")
+            Acourse = request.POST.get("course")
+            Apreferred_first_name = request.POST.get("preferred_first_name")
+            Aphone = request.POST.get("phone")
+            Amobile = request.POST.get("mobile")
+            Abest_contact_no = request.POST.get("best_contact_no")
+            ADOB = request.POST.get("DOB")
+            Agender = request.POST.get("gender")
+            Adegree = request.POST.get("degree")
+            Astatus = request.POST.get("status")
+            Afirst_language = request.POST.get("first_language")
+            Acountry_of_origin = request.POST.get("country_of_origin")
+            Aeducational_background = request.POST.get("educational_background")
+                
+            staff_account = StaffAccount.objects.create(
+            staff_id = Astaff_id, 
+            first_name = Afirst_name,
+            last_name = Alast_name,
+            email = Aemail,
+            session_history =Asession_history,
+            faculty = Afaculty,
+            course = Acourse,
+            preferred_first_name = Apreferred_first_name,
+            phone = Aphone,
+            mobile = Amobile,
+            best_contact_no = Abest_contact_no,
+            DOB = ADOB,
+            gender = Agender,
+            degree =Adegree,
+            status = Astatus,
+            first_language = Afirst_language,
+            country_of_origin = Acountry_of_origin,
+            educational_background = Aeducational_background
+            )
+    # staff_account.save()
+
+    context = {'create_advisor_page': 'active'}
+    return render(request, 'pages/layouts/create_advisor.html', context)
 
 def students(request):
     context = {'students_page': 'active'}
