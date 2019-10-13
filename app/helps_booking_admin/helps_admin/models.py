@@ -132,6 +132,20 @@ class Workshop(models.Model):
             "Staff: {}".format(self.staff),
             "Students: {}".format(self.students)
 ])
+
+class Message(models.Model):
+    message_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    heading = models.CharField(max_length=500, default="")#
+    body = models.CharField(max_length=40000)
+    program =  models.CharField(max_length=100)
+ 
+    def __str__(self):
+        return "\n".join([
+            "Message ID: {}".format(self.message_ID),
+            "Staff: {}".format(self.staff),
+            "Students: {}".format(self.students)
+])
+
 class StaffAccount(models.Model):
 
     staff_id = models.CharField(max_length=8, primary_key=True,default=1)

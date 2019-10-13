@@ -358,7 +358,33 @@ def create_session(request):
         cal = SessionConstants.calendar.new_date(d.year, d.month, d.day)
         context['time_selection_visible'] = 'block'
         return render(request, 'pages/layouts/create_session.html', context)
-            
+
+        
+def message(request):
+
+    if request.method == "POST":
+        data = request.POST
+        context = {}
+        context['errors'] = []
+        context['form_valid'] = True
+        # Session date
+        context['default_heading'] = data['textheading1']
+        context['default_body'] = data['textarea']
+        context['default_program'] = data['message_dropdown']
+      
+        if data['confirm_message'] == 'yes':
+            new_ws = Message.objects.create(
+                heading=data['textheading1'],
+                body=data['textarea'],
+                program=data['message_dropdown'],
+              )
+            context['confirm_message'] = 'Message Created Successfully.'
+            return render(request, 'pages/layouts/message.html', context)
+        else:
+            return render(request, 'pages/layouts/message.html', context)
+
+        return render(request, 'pages/layouts/message.html', context)
+   
 
 def delete_session(request):
     if request.method == 'POST':
