@@ -47,10 +47,10 @@
         message_dropdown.options[message_dropdown.selectedIndex].value;
 
       console.log(
-        "INPUT CONTENT: ",
-        message_heading.value,
-        message_content.value,
-        strSectionChange
+        "INPUT CONTENT" + "\n",
+        "heading: " + message_heading.value + "\n",
+        "body: " + message_content.value + "\n",
+        "type: " + strSectionChange + "\n"
       );
 
       var form_incomplete = false;
@@ -62,7 +62,10 @@
         document.getElementById("error_header").style.display = "block";
         document.getElementById("background").style.height = "500px";
       }
-      if (message_content.value === "") {
+      if (
+        message_content.value === "" ||
+        message_content.value === "Edit Content"
+      ) {
         form_incomplete = true;
         document.getElementById("error_body").style.display = "block";
         document.getElementById("background").style.height = "500px";
@@ -80,30 +83,32 @@
       alert("Message Submitted");
       var form = document.forms["confirm_message"];
       form.submit();
+      window.location.reload();
     }
   </script>
 
   <h1>Message page</h1>
 
-  <p>
-    Here as an admin you can view and edit the messages to be sent to students
-    such as announcements and programs.
-  </p>
-
-  <div class="row-message">
-    <select id="message_dropdown">
-      <option value="logon">Log on Announcements</option>
-      <option value="software">Software Internship Programs</option>
-      <option value="engineering">Engineering Programs</option>
-    </select>
+  <div class="row-message" style="padding-top: 10px;">
+    <p>
+      Here as an admin you can view and edit the messages to be sent to students
+      such as announcements and programs.
+    </p>
   </div>
 
-  <div class="row-message">
+  <div class="row-message" style="padding-top: 10px;">
+    <div class="row-message" style="margin-bottom: 10px; padding-top: 10px; ">
+      <select id="message_dropdown">
+        <option value="log_on">Log on Announcements</option>
+        <option value="software_programs">Software Internship Programs</option>
+        <option value="engineering_programs">Engineering Programs</option>
+      </select>
+    </div>
     <form
       action="/message/"
       method="POST"
       onsubmit="return postMessage();"
-      id="post_message"
+      id="confirm_message"
     >
       <div
         id="background"
@@ -120,8 +125,7 @@
             id="textheading1"
             disabled="true"
             value="Edit Heading"
-            onchange="
-            this.style.color='black';formElementChange();"
+            onchange="this.style.color='black';formElementChange();"
           />
           <label
             id="error_header"
@@ -132,14 +136,14 @@
         </div>
 
         <textarea
-          style="resize: none; width: 100%; height: 60%; margin-top: 20px;   float: left;  background-color:#FFFFFF;"
-          value="Edit Content"
+          style="resize: none; width: 100%; height: 60%; margin-top: 20px;  background-color:#FFFFFF; align-content:left; overflow:auto;"
           disabled="true"
           id="textarea"
           onchange="
             this.style.color='black';formElementChange();"
         >
-        </textarea>
+Edit Content</textarea
+        >
         <label
           id="error_body"
           style="color:#FF0000; border: 0; padding:0; margin:0; display:none;"
@@ -150,7 +154,7 @@
     </form>
   </div>
 
-  <div class="row-message">
+  <div class="row-message" style="padding-top: 10px;">
     <input type="submit" value="Submit" onclick="postMessage();" />
     <button onclick="undisableTxt()">Edit</button>
   </div>
