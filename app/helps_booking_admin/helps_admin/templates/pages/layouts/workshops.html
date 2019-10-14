@@ -51,6 +51,7 @@
             <td> Advisor </td>
             <td> Start </td>
             <td> Finish </td>
+            <td> Files </td>
             <td>  </td>
         </tr>
         {% if workshop_list %}
@@ -61,6 +62,7 @@
                     <td> {{ workshop.staff }} </td>
                     <td> {{ workshop.start_time }} </td>
                     <td> {{ workshop.end_time }} </td>
+                    <td> {{ workshop.workshop_files }} </td>
                     <td><a href="/workshops/?workshopid={{ workshop.workshop_ID }}"> View/Edit </a></td>
                 </tr>
             {% endfor %}

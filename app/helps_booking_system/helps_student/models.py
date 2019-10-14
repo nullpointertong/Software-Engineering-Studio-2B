@@ -161,7 +161,6 @@ class StaffAccount(models.Model):
         )
 
 class StudentAccount(models.Model):
-
     student_id = models.CharField(max_length=8, primary_key=True)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
@@ -170,6 +169,7 @@ class StudentAccount(models.Model):
     no_show_history = DateListField()
     faculty =  models.CharField(max_length=32)
     course =  models.CharField(max_length=64)
+    preferred_first_name = models.CharField(max_length=64)
     preferred_first_name = models.CharField(max_length=64)
     phone = models.CharField(max_length=12)
     mobile = models.CharField(max_length=12)

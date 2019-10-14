@@ -36,7 +36,8 @@
             <br>
             <input id="location_input" value="{{ default_location }}" onchange="
             this.style.color='black';formElementChange();" type="text" name="req_location" placeholder="Enter Location...">
-        
+             <br>
+
         </div>
         {% if not form_valid %}
         <div style="display:block; float:left; position:relative;">
@@ -79,7 +80,13 @@
                 <br>
                 {% if not clean_page %}
                 {% if form_valid %}
-                    <div id='booking_span'>
+                    <br>
+                    <a style="margin-bottom:10px">Select File to Upload</a>
+                    <br>
+                    <input type="file" name="fileToUpload" id="fileToUpload">
+                    <br>
+
+                    <div id='booking_span'></div>    
                         <span>The information is valid. Press "Create" to confirm.</span>
                         <button class="btn" type=button onclick="confirmBooking();" style="margin:10px; position:relative">{{ book_or_edit }}</button>
                     </div>
