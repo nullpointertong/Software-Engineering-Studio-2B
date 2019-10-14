@@ -8,6 +8,7 @@
     <script>
         var workshops_js = "{{ workshops_for_js|escapejs }}";
         var workshop_skillsets = "{{ workshops_skills_js|escapejs }}";
+        var workshop_to_register;
     </script>
     <script src="{% static 'js/student-workshops.js' %}"></script>
 {% endblock %}
@@ -15,15 +16,51 @@
 {% block content %}
 <!-- Modal for registering to workshop -->
 <div id="modalQuery" class="modal">
-    <div class="modal-content">
-        <span id="closeBtn" class="close">&times;</span>
-        <!-- Details about the workshop go in here -->
-        <p>Register for workshop <b id="registerConfirm">workshop</b>?</p>
-        <button id="finalRegisterBtn" class="modalRegister">REGISTER</button>
-    </div>
+    <form action="/workshops/" method="POST">
+        {% csrf_token %}
+        <div class="modal-content">
+            <span id="closeBtn" class="close">&times;</span>
+            <!-- Details about the workshop go in here -->
+            <p>Register for workshop <b id="registerConfirm">workshop</b>?</p>
+            <input type="hidden" id="id_to_change" name="workshop_id" value="poi"></input>
+            <input type="submit" id="finalRegisterBtn" class="modalRegister" name="registration_post" value="REGISTER"></input>
+        </div>
+    </form>
 </div>
 
-<h1>Workshop Registration page</h1>
+<h2>Currently Enrolled Workshops</h2>
+<table style="width:100%">
+    <tr>
+        <th>Topic</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Room</th>
+        <th>Withdraw from workshop</th>
+    </tr>
+    {% if enr_workshops %}
+        {% for workshop in enr_workshops %}    
+            <tr>
+                <td>{{ workshop.skill_set_name }}</td>
+                <td>{{ workshop.start_time }}</td>
+                <td>{{ workshop.end_time }}</td>
+                <td>{{ workshop.room }}</td>
+                <td>
+                    <form action="/workshops/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="withdrawal_id" value="{{ workshop.workshop_ID|toString }}"></input>
+                        <input type="submit" name="withdraw_post" value="Withdraw"></input>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="5">You are currently not enrolled in any workshops.</td>
+        </tr>
+    {% endif %}
+</table>
+<br>
+<h2>Available Workshops</h2>
 <div class="filter_form">
     <form action="/workshops/" method="POST">
         {% csrf_token %}
@@ -35,7 +72,7 @@
             <span>and
                 <input name="end_date" type="date">
             </span>
-                <input type="submit" value="Filter">
+                <input type="submit" name="filter_post" value="Filter">
         </div>
         <div class="applied_filters">
             {% if date_filters|length > 0 %}
@@ -44,7 +81,6 @@
         </div>
     </form>
 </div>
-<h5>Workshops available</h5>
 <table style="width:100%">
     <tr>
         <th>Topic</th>
@@ -56,8 +92,7 @@
         <th>Room</th>
         <th>No. Sessions</th>
         <th>Places Avail.</th>
-        <th>Details</th>
-        <th>Files</th>
+        <th>Register</th>
     </tr>
     <!--
     <tr>
