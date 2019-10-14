@@ -56,7 +56,8 @@ class DateListField(models.Field):
 
     def get_prep_value(self, value):
         # Return comma separated string of datetimes
-        return ','.join([x.strftime('%d-%m-%Y %H:%M:%S') for x in value])
+        if value is not None:
+            return ','.join([x.strftime('%d-%m-%Y %H:%M:%S') for x in (value,)])
 
     def from_db_value(self, value, expression, connection):
         if value is None:
@@ -121,8 +122,9 @@ class Workshop(models.Model):
     start_time = models.TimeField(default=default_start_time)
     end_time = models.TimeField(default=default_start_time)
     days = models.CharField(max_length=128, default="")
-    no_of_sessions = models.PositiveIntegerField(default=1)
+    no_of_sessions = models.PositiveIntegerField(default=123)
     room = models.CharField(max_length=32)
+    workshop_files = models.FileField()
 
     def __str__(self):
         return "\n".join([
@@ -130,27 +132,41 @@ class Workshop(models.Model):
             "Staff: {}".format(self.staff),
             "Students: {}".format(self.students)
 ])
+
+class Message(models.Model):
+    message_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    heading = models.CharField(max_length=500, default="")#
+    body = models.CharField(max_length=40000)
+    program =  models.CharField(max_length=100)
+ 
+    def __str__(self):
+        return "\n".join([
+            "Message ID: {}".format(self.message_ID),
+            "Staff: {}".format(self.staff),
+            "Students: {}".format(self.students)
+])
+
 class StaffAccount(models.Model):
 
-    staff_id = models.CharField(max_length=8, primary_key=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email  = models.EmailField()
-    session_history = DateListField()
+    staff_id = models.CharField(max_length=8, primary_key=True,default=1)
+    first_name = models.CharField(max_length=30, default="placeholder",null=True)
+    last_name = models.CharField(max_length=30, default="placeholder",null=True)
+    email  = models.EmailField(default="utsemailplaceholder",null=True)
+    session_history = DateListField(null=True,default=default_start_time)
     # staff_role = models.CharField(max_length=12)
-    faculty =  models.CharField(max_length=30)
-    course =  models.CharField(max_length=30)
-    preferred_first_name = models.CharField(max_length=64)
-    phone = models.CharField(max_length=12)
-    mobile = models.CharField(max_length=12)
-    best_contact_no = models.CharField(max_length=12)
-    DOB = models.DateField()
-    gender = models.CharField(max_length=24)
-    degree = models.CharField(max_length=64)
-    status = models.CharField(max_length=64)
-    first_language = models.CharField(max_length=32)
-    country_of_origin = models.CharField(max_length=64)
-    educational_background = models.CharField(max_length=64)
+    faculty =  models.CharField(max_length=30,default=0,null=True)
+    course =  models.CharField(max_length=30,default=0,null=True)
+    preferred_first_name = models.CharField(max_length=64,default="firstnameplaceholder",null=True)
+    phone = models.CharField(max_length=12,default="00",null=True)
+    mobile = models.CharField(max_length=12,default="00",null=True)
+    best_contact_no = models.CharField(max_length=12,default="00",null=True)
+    DOB = models.DateField(null=True,default=default_start_time)
+    gender = models.CharField(max_length=24,default="placeholder",null=True)
+    degree = models.CharField(max_length=64,default="placeholder",null=True)
+    status = models.CharField(max_length=64,default="placeholder",null=True)
+    first_language = models.CharField(max_length=32,default="placeholder",null=True)
+    country_of_origin = models.CharField(max_length=64,default="placeholder",null=True)
+    educational_background = models.CharField(max_length=64,default="placeholder",null=True)
 
     def __str__(self):
         return '{1} {2} {3} ({0})'.format(
