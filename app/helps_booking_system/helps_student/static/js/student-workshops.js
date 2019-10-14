@@ -1,5 +1,6 @@
 var workshops_js, workshop_skillsets, workshop_to_register;
 var modal, modal_workshop, open_modal_btns, close_btn, register_btn;
+var post_input;
 // var modal = document.getElementById("modalQuery");
 // var modal_workshop = document.getElementById("registerConfirm");
 // var open_modal_btns = document.querySelectorAll("registerBtn");
@@ -12,10 +13,10 @@ window.onload = function() {
     open_modal_btns = document.querySelectorAll("registerBtn");
     close_btn = document.getElementById("closeBtn");
     register_btn = document.getElementById("finalRegisterBtn");
-    
+    post_data_input = document.getElementById("id_to_change");
+
     // Register logic
     register_btn.onclick = function() {
-        // TODO: Register current user to workshop
         modal.style.display = "none";
     }
 
@@ -35,11 +36,16 @@ document.addEventListener('click', function(event) {
         // Search for the workshop
         var workshop_ids = workshops_js.replace(/['\[\]\s]+/g,"").split(",");
         var workshop_skills = workshop_skillsets.replace(/['\[\]]+/g,"").split(",");
+        // Set the form value to the ID of the workshop being registered
+        post_data_input.value = event.target.id;
+        // post_data_input.value = "wawawa";
+        // console.log(post_data_input.value);
         for (var i=0; i < workshops_js.length; i++) {
             if (event.target.id == workshop_ids[i]) {
                 // Found matching workshop
-                workshop_to_register = i;
+                workshop_to_register = workshop_ids[i];
                 modal_workshop.innerHTML = workshop_skills[i];
+                // Set form value
                 modal.style.display = "block";
             }
         }
