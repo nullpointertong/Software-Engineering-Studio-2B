@@ -68,22 +68,50 @@ def bookings(request):
     return render(request, 'pages/layouts/booking.html', context)
 
 def workshops(request):
+    # Retrieve all available workshops
     workshops = Workshop.objects.all()
+    # Retrieve logged in user's enrolled workshops TODO: Remove hard-coded user and use authentication
+    #### DEBUG ONLY:
+    student = StudentAccount.objects.all().get(student_id="10000000")
+    ####
+    # student = request.user
+    enrolled_workshops = [workshop for workshop in workshops if student in workshop.students.all()]
     date_context = {'date_filters': []}
     # If POST, retrieve filters
     if request.method == "POST":
         # Retrieve data
         data = request.POST
-        # Filter workshops by dates (if valid)
-        if data['start_date']:
-            workshops = workshops.filter(end_date__gte=data['start_date'])
-            date_context['date_filters'].append('After: {}'.format(data['start_date']))
-        if data['end_date']:
-            workshops = workshops.filter(start_date__lte=data['end_date'])
-            date_context['date_filters'].append('Before: {}'.format(data['end_date']))
+        # Determine if form submission was a withdrawal, filter or registration
+        if 'withdraw_post' in data:
+            # Search for workshop
+            workshop_id = data['withdrawal_id']
+            for workshop in workshops:
+                if str(workshop.workshop_ID) == workshop_id:
+                    # Remove student from workshop
+                    workshop.students.remove(student)
+                    enrolled_workshops.remove(workshop)
+        elif 'filter_post' in data:
+            # Filter workshops by dates (if valid)
+            if data['start_date']:
+                workshops = workshops.filter(end_date__gte=data['start_date'])
+                date_context['date_filters'].append('After: {}'.format(data['start_date']))
+            if data['end_date']:
+                workshops = workshops.filter(start_date__lte=data['end_date'])
+                date_context['date_filters'].append('Before: {}'.format(data['end_date']))
+        # Form submission was for registration of workshop
+        elif 'registration_post' in data:
+            # Retrieve Workshop to be registered to
+            workshop_id = data['workshop_id']
+            for workshop in workshops:
+                if str(workshop.workshop_ID) == workshop_id:
+                    # Add student to workshop if not in workshop
+                    if student not in workshop.students.all():
+                        workshop.students.add(student)
+                        enrolled_workshops.append(workshop)
     context = {
         **date_context,
         'workshops_page': 'active',
+        'enr_workshops': enrolled_workshops,
         'workshops': workshops
     }
     # Pass content for js
