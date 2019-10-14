@@ -28,9 +28,8 @@
     </form>
 </div>
 
-<h1>Workshop Registration page</h1>
-<h5>Currently enrolled workshops</h5>
-<table style="width:75%">
+<h2>Currently Enrolled Workshops</h2>
+<table style="width:100%">
     <tr>
         <th>Topic</th>
         <th>Start Time</th>
@@ -60,6 +59,8 @@
         </tr>
     {% endif %}
 </table>
+<br>
+<h2>Available Workshops</h2>
 <div class="filter_form">
     <form action="/workshops/" method="POST">
         {% csrf_token %}
@@ -80,7 +81,6 @@
         </div>
     </form>
 </div>
-<h5>Workshops available</h5>
 <table style="width:100%">
     <tr>
         <th>Topic</th>
@@ -92,8 +92,7 @@
         <th>Room</th>
         <th>No. Sessions</th>
         <th>Places Avail.</th>
-        <th>Details</th>
-        <th>Files</th>
+        <th>Register</th>
     </tr>
     <!--
     <tr>
