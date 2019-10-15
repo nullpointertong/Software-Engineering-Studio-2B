@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Waiting List</title>
+    <script>
+        function removeMeeting(btn)
+        {
+            if (confirm("Are you sure you wish to cancel this meeting?"))
+            {
+                var row = btn.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+            }
+        }
+
+        function confirmBooking() {
+            if (confirm("Are you sure you wish to create a booking for this time?"))
+            {                
+                var table = document.getElementById("tblBookings");
+                var row = table.insertRow(2);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                cell2.innerHTML = document.getElementById("tmStartTime").value;
+                cell3.innerHTML = document.getElementById("tmEndTime").value;
+                cell1.innerHTML = document.getElementById("dfMeetingDate").value;
+                cell4.innerHTML = "Pending";
+                cell5.innerHTML = "<button type='button' id=btnRemove onClick='removeMeeting(this)'>Cancel</button>";
+
+                //createDatabase();
+
+                //write to database
+                //needs new table
+                /*waitingID
+                 bookedBy
+                 meetingDate
+                 startTime
+                 endTime
+                 createDate
+                 meetingCreated
+                 advisor
+                 room
+                 meetingType
+                 createdBy
+                 deletedBy
+                 deletedDate
+                 isDeleted
+                 */
+                //CREATE TABLE bookings(waitingId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, bookedBy varchar(30) NOT NULL, meetingDate datetime NOT NULL,
+                //startTime time NOT NULL, endTime time NOT NULL, endTime time NOT NULL, createdDate datetime NOT NULL, meetingCreated bit NOT NULL,
+                //advisor varchar(30) NULL, room varchar(30) NOT NULL, meetingType varchar(30) NOT NULL, createdBy varchar(30) NULL, deletedBy varchar(30) NULL,
+                //deletedDate datetime NULL, isDeleted bit NULL) '; //theres something to do with timestamps as well so use those
+
+            }
+        }
+
+        function createDatabase() {
+            try {
+                if (window.openDatabase) {
+                    var shortName = 'db_waiting';
+                    var version = '1.0';
+                    var displayName = 'Waiting List';
+                    var maxSize = 65536; // in bytes
+                    db = openDatabase(shortName, version, displayName, maxSize);
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+
+        function createTable() {
+            var sqlC = 'CREATE TABLE bookings (waitingId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, image BLOB )';
+            executeQuery(sqlC);
+        }
+
+        function insertValue() {
+            var img = document.getElementById('image');
+            var sql = 'insert into image (name,image) VALUES ("sujeet","' + img + '")';
+            executeQuery(sql, function (results) { alert(results) });
+        }
+
+        function executeQuery($query, callback) {
+            try {
+                if (window.openDatabase) {
+                    db.transaction(
+                        function (tx) {
+                            tx.executeSql($query, [], function (tx, result) {
+                                if (typeof (callback) == "function") {
+                                    callback(result);
+                                } else {
+                                    if (callback != undefined) {
+                                        eval(callback + "(result)");
+                                    }
+                                }
+                            }, function (tx, error) { });
+                        });
+                    return rslt;
+                }
+            } catch (e) { }
+        }
+    </script>
+
+    <style>
+        th, td {
+            border: 1px solid #006;
+        }
+        table {
+  border-collapse: collapse;
+}
+    </style>
+</head>
+<body>
+    <!--Waiting List for student side
+        Insert menu bar here
+        -->
+    <!--Date Box
+        Start time
+        End time
+        Confirm button
+        Confirm pop up
+        Write to database in the waiting list-->
+
+    <form action="/newWaitingList/" method="post">
+        {% csrf_token %}
+        <table style="min-width:80%" id="tblBookings">
+            <tr style="text-align:center; background-color:orangered; color:white; border-color:orangered;">
+                <th>Meeting Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Confirm Appointment</th>
+            </tr>
+            <tr style="width:80%; text-align:center;">
+                <td>
+                    <input type="date" id="dfMeetingDate" required value="2019-01-01" />
+                </td>
+                <td>
+                    <input type="time" id="tmStartTime" required value="10:00:00.00" />
+                </td>
+                <td>
+                    <input type="time" id="tmEndTime" required value="11:00:00.00" />
+                </td>
+                <td>
+                </td>
+                <td>
+                    <button id="btnConfirm" value="Confirm Booking" style="height:20px;width:80px" onclick="confirmBooking()" type="submit">Request</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <!--
+        <label>Meeting Date</label>
+        <a style="width:300px" />
+        <label>Start Time</label>
+        <a style="width:300px" />
+        <label>End Time</label>
+        <a style="width:300px" />
+        <label>Confirm Details</label>
+
+        <input type="date" id="dfMeetingDate" />
+        <a style="width:300px" />
+        <input type="time" id="tmStartTime" />
+        <a style="width:300px" />
+        <input type="time" id="tmEndTime" />
+        <a style="width:300px" />
+        <button id="btnConfirm" value="Confirm Booking" style="height:20px;width:80px" onclick="confirmBooking()">Confirm</button>
+
+        -->
+</body>
+</html>

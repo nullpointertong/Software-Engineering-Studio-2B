@@ -1,5 +1,73 @@
 {% extends "pages/layouts/base.html" %}
 
 {% block content %}
-<h1>Waiting List</h1>
+
+<script>
+    function deleteBooking(obj)
+    {
+        if (confirm("Are you sure you wish to cancel this booking request?"))
+        {
+            $(obj).closest('tr').remove();
+        }
+    }
+
+    function created(obj)
+    {
+        $(obj).closest('tr').remove();
+    }
+</script>
+<h1 style="color:white">Waiting List</h1>
+
+<table style="color:white">
+    <thead style="font-weight:bolder">
+        <tr>
+            <td style="min-width:300px;">Student ID</td>
+            <td style="min-width:300px;">Meeting Date</td>
+            <td style="min-width:300px;">Start Time</td>
+            <td style="min-width:300px;">End Time</td>
+            <td style="min-width:150px;">Action</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tr>
+        <td>12875732</td>
+        <td>16-10-2019</td>
+        <td>11:00AM</td>
+        <td>12:00PM</td>
+        <td><a href="{% url 'create_workshop' %}">Create Booking</a></td>
+        <td><a href="" onclick="deleteBooking(this)">Delete Booking</a></td>
+    </tr>
+    <tr>
+        <td>12345678</td>
+        <td>17-10-2019</td>
+        <td>01:00PM</td>
+        <td>02:30PM</td>
+        <td><a href="{% url 'create_workshop' %}">Create Booking</a></td>
+        <td><a href="" onclick="deleteBooking(this)">Delete Booking</a></td>
+    </tr>
+    <tr>
+        <td>98765432</td>
+        <td>01-11-2019</td>
+        <td>10:30AM</td>
+        <td>12:30PM</td>
+        <td><a href="{% url 'create_workshop' %}">Create Booking</a></td>
+        <td><a href="" onclick="deleteBooking(this)">Delete Booking</a></td>
+    </tr>
+    <tr>
+        <td>24681357</td>
+        <td>01-11-2019</td>
+        <td>11:00AM</td>
+        <td>02:00PM</td>
+        <td><a href="{% url 'create_workshop' %}">Create Booking</a></td>
+        <td><a href="" onclick="deleteBooking(this)">Delete Booking</a></td>
+    </tr>
+    <tr>
+        <td>56789123</td>
+        <td>10-12-2019</td>
+        <td>08:00AM</td>
+        <td>09:00AM</td>
+        <td><a href="{% url 'create_workshop' %}">Create Booking</a></td>
+        <td><a href="" onclick="deleteBooking(this)">Delete Booking</a></td>
+    </tr>
+</table>
 {% endblock %}
