@@ -1,22 +1,100 @@
 {% extends "pages/layouts/base.html" %}
+{% load booking_extras %}
+
+{% block extra_head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/student-workshops.css' %}">
+    <!--Prepare to pass workshop context to external js-->
+    <script>
+        var workshops_js = "{{ workshops_for_js|escapejs }}";
+        var workshop_skillsets = "{{ workshops_skills_js|escapejs }}";
+        var workshop_to_register;
+    </script>
+    <script src="{% static 'js/student-workshops.js' %}"></script>
+{% endblock %}
 
 {% block content %}
-<h1>Workshop Registration page</h1>
-<h6>Search for Workshops on a specific date</h6>
-<input id="date" type="date" value="2019-01-01">
-<h5>Search all Workshops</h5>
+<!-- Modal for registering to workshop -->
+<div id="modalQuery" class="modal">
+    <form action="/workshops/" method="POST">
+        {% csrf_token %}
+        <div class="modal-content">
+            <span id="closeBtn" class="close">&times;</span>
+            <!-- Details about the workshop go in here -->
+            <p>Register for workshop <b id="registerConfirm">workshop</b>?</p>
+            <input type="hidden" id="id_to_change" name="workshop_id" value="poi"></input>
+            <input type="submit" id="finalRegisterBtn" class="modalRegister" name="registration_post" value="REGISTER"></input>
+        </div>
+    </form>
+</div>
+
+<h2>Currently Enrolled Workshops</h2>
 <table style="width:100%">
     <tr>
-        <th>Topics</th>
+        <th>Topic</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Room</th>
+        <th>Withdraw from workshop</th>
+    </tr>
+    {% if enr_workshops %}
+        {% for workshop in enr_workshops %}    
+            <tr>
+                <td>{{ workshop.skill_set_name }}</td>
+                <td>{{ workshop.start_time }}</td>
+                <td>{{ workshop.end_time }}</td>
+                <td>{{ workshop.room }}</td>
+                <td>
+                    <form action="/workshops/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="withdrawal_id" value="{{ workshop.workshop_ID|toString }}"></input>
+                        <input type="submit" name="withdraw_post" value="Withdraw"></input>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="5">You are currently not enrolled in any workshops.</td>
+        </tr>
+    {% endif %}
+</table>
+<br>
+<h2>Available Workshops</h2>
+<div class="filter_form">
+    <form action="/workshops/" method="POST">
+        {% csrf_token %}
+        <h6>Search for Workshops on a specific date</h6>
+        <div class="filter_date">
+            <span>Between
+                <input name="start_date" type="date">
+            </span>
+            <span>and
+                <input name="end_date" type="date">
+            </span>
+                <input type="submit" name="filter_post" value="Filter">
+        </div>
+        <div class="applied_filters">
+            {% if date_filters|length > 0 %}
+            <h6>Filtering by {{ date_filters|join:", " }}</h6>
+            {% endif %}
+        </div>
+    </form>
+</div>
+<table style="width:100%">
+    <tr>
+        <th>Topic</th>
         <th>Start Date</th>
         <th>Finish Date</th>
         <th>Days</th>
         <th>Start Time</th>
         <th>End Time</th>
+        <th>Room</th>
         <th>No. Sessions</th>
         <th>Places Avail.</th>
-        <th>Details</th>
+        <th>Register</th>
     </tr>
+    <!--
     <tr>
         <td>Introduction to Django</td>
         <td>10/04/2019</td>
@@ -28,5 +106,30 @@
         <td>50</td>
         <td>Details</td>
     </tr>
-
-</table>{% endblock %}
+    -->
+    {% if workshops.count > 0 %}
+        {% for workshop in workshops %}
+            <tr>
+                <td>{{ workshop.skill_set_name }}</td>
+                <td>{{ workshop.start_date }}</td>
+                <td>{{ workshop.end_date }}</td>
+                <td>{{ workshop.days }}</td>
+                <td>{{ workshop.start_time }}</td>
+                <td>{{ workshop.end_time }}</td>
+                <td>{{ workshop.room }}</td>
+                <td>{{ workshop.no_of_sessions }}</td>
+                {% with num_enrolled=workshop.students.count %}
+                    <td>{{ workshop.max_students|subtract:num_enrolled }}</td>
+                {% endwith %}
+                <td>
+                    <button id="{{ workshop.workshop_ID|toString }}" class="registerBtn">Register</button>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="10">There are currently no available Workshops.</td>
+        </tr>
+    {% endif %}
+</table>
+{% endblock %}

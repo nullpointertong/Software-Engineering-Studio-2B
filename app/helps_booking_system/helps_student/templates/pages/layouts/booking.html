@@ -1,6 +1,72 @@
 {% extends "pages/layouts/base.html" %}
 
 {% block content %}
-<h1>Booking page</h1>
-<input id="date" type="date" value="2019-01-01">
+{% comment %} <h1>Booking page</h1> {% endcomment %}
+{% comment %} <input id="date" type="date" value="2019-01-01"> {% endcomment %}
+{% block booking_list %}
+<div style="margin:1%;">
+    <h2>Upcoming Bookings</h2>
+    <div class="table-responsive">
+        <table id="object_list_table" class="table table-striped">
+            <tr>
+                <td> Student </td>
+                <td> Advisor </td>
+                <td> Date </td>
+                <td> From </td>
+                <td> To </td>
+                <td> Location </td>
+                <td>  </td>
+            </tr>
+            {% if currentSessions %}
+                {% for session in currentSessions %}
+                <tr>
+                    <td> {{ session.student_id }} </td>
+                    <td> {{ session.staff_id }} </td>
+                    <td> {{ session.date }} </td>
+                    <td> {{ session.start_time }} </td>
+                    <td> {{ session.end_time }} </td>
+                    <td> {{ session.location }} </td>
+                    <td><a href="/bookings/cancel?sessionid={{ session.session_ID }}" onclick="return confirm('Are you sure you want to cancel this session?')"> Cancel </a></td>
+                </tr>
+                {% endfor %}
+            {% else %}
+            <tr><td>
+                    <p> No upcoming bookings. </p>
+            </td></tr>
+            {% endif %}
+        </table>
+    </div>
+    <h2>Past Bookings</h2>
+    <table id="object_list_table" class="table table-striped object_list_table">
+            <tr>
+                <td> Student </td>
+                <td> Advisor </td>
+                <td> Date </td>
+                <td> From </td>
+                <td> To </td>
+                <td> Location </td>
+                <td>  </td>
+            </tr>
+            {% if pastSessions %}
+                {% for session in pastSessions %}
+                    <tr>
+                        <td> {{ session.student_id }} </td>
+                        <td> {{ session.staff_id }} </td>
+                        <td> {{ session.date }} </td>
+                        <td> {{ session.start_time }} </td>
+                        <td> {{ session.end_time }} </td>
+                        <td> {{ session.location }} </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td>
+                    <p> No past bookngs. </p>
+                </td>   
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+{% endblock %}
+
 {% endblock %}

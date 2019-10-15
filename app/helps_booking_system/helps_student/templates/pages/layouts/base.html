@@ -8,12 +8,13 @@
     <title>UTS HELPS Booking System</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% block extra_head %}{% endblock %}
 
 </head>
 <body>
     {% include 'pages/layouts/navbar.html' %}
     {% if user.is_authenticated %}
-      <li style="color: #4E9CAF">Welcome, {{ user.get_username }}</li>  
+      <li>Welcome, {{ user.get_username }}</li>  
     {% else %}
       <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
     {% endif %}

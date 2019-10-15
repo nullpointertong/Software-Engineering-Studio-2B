@@ -1,0 +1,83 @@
+.applied_filters h6 {
+    color: red;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 45%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modalRegister {
+    border: none;
+    background-color: rgb(207, 68, 68);
+    color: white;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.modalRegister:hover,
+.modalRegister:focus {
+    background-color: rgb(255, 119, 119);
+    color: white;
+    cursor: pointer;
+}
+
+.modalRegister:active {
+    background-color: rgb(163, 35, 35);
+    color: white;
+    cursor: pointer;
+}
+
+h2:before, h6:before, span:before {
+    content: "\00a0 ";
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+   background-color: rgb(225, 225, 225);
+   border-top: 2px solid rgb(210, 210, 210);
+   border-bottom: 2px solid rgb(210, 210, 210);
+}
+
+tr:nth-child(odd) {
+    background-color: rgb(248, 248, 248);
+}
+
+tr:hover {
+    background-color: rgb(235, 235, 235);
+}

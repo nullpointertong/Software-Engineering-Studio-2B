@@ -5,10 +5,10 @@
     {% load static %}
     <script src="{% static 'js/sessions.js/' %}"></script>
     
-    <div style="margin-left: 10px;margin-bottom: 10px; color: white;">
+    <div style="margin-left: 10px;margin-bottom: 10px">
         <h1>Edit Session</h1>
     </div>
-    <div style="width:100%; color: white;">
+    <div style="width:100%;">
         <form id="create_session" action="/edit_session/" onsubmit="return book();" method="POST">
             {% csrf_token %}
         <div style="float:left; margin-left:10px; margin-bottom:10px;position:relative">
@@ -16,7 +16,7 @@
             <br>
             <input id="student_search" value="{{ default_student }}" onchange="
             this.style.color='black';formElementChange();" type="text" placeholder="Enter Student ID..." name="req_student_id">
-            <strong style="display:block;{{ student_info_color }};color: white;">{{ student_info }}</strong>
+            <strong style="display:block;{{ student_info_color }}">{{ student_info }}</strong>
             <br>
             <a style="margin-bottom:10px">Advisor</a>
             <br>
