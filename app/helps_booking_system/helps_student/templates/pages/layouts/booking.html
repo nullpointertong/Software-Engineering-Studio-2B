@@ -1,107 +1,74 @@
 {% extends "pages/layouts/base.html" %}
+{% load booking_extras %}
+
+{% block extra_head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/student-workshops.css' %}?version=3">
+{% endblock %}
+
 
 {% block content %}
-{% comment %} <h1>Booking page</h1> {% endcomment %}
-{% comment %} <input id="date" type="date" value="2019-01-01"> {% endcomment %}
-{% block booking_list %}
-<div style="margin:1%;">
-    <h2>Upcoming Bookings</h2>
-    <div class="table-responsive">
-        <table id="object_list_table" class="table table-striped">
+<div style="text-align: center">
+    {% block booking_list %}
+    <div style="margin:1%;">
+        <h2>Upcoming Bookings</h2>
+        <table style="width:100%">
             <tr>
-                <td> Student </td>
+                <td> Location </td>
                 <td> Advisor </td>
                 <td> Date </td>
                 <td> From </td>
                 <td> To </td>
-                <td> Location </td>
+                {% comment %} <td> Location </td> {% endcomment %}
                 <td>  </td>
             </tr>
             {% if currentSessions %}
                 {% for session in currentSessions %}
                 <tr>
-                    <td> {{ session.student_id }} </td>
-                    <td> {{ session.staff_id }} </td>
+                    <td> {{ session.location }} </td>
+                    <td> {{ session.staff.first_name }} {{session.staff.last_name}} </td>
                     <td> {{ session.date }} </td>
                     <td> {{ session.start_time }} </td>
                     <td> {{ session.end_time }} </td>
-                    <td> {{ session.location }} </td>
                     <td><a href="/bookings/cancel?sessionid={{ session.session_ID }}" onclick="return confirm('Are you sure you want to cancel this session?')"> Cancel </a></td>
                 </tr>
                 {% endfor %}
             {% else %}
-            <tr><td>
+            <tr><td colspan="7">
                     <p> No upcoming bookings. </p>
             </td></tr>
             {% endif %}
         </table>
+        <h2>Past Bookings</h2>
+        <table style="width:100%">
+                <tr>
+                    <td> Location </td>
+                    <td> Advisor </td>
+                    <td> Date </td>
+                    <td> From </td>
+                    <td> To </td>
+                    {% comment %} <td> Location </td> {% endcomment %}
+                    <td>  </td>
+                </tr>
+                {% if pastSessions %}
+                    {% for session in pastSessions %}
+                        <tr>
+                            <td> {{ session.location }} </td>
+                            <td> {{ session.staff.first_name }} {{session.staff.last_name}} </td>
+                            <td> {{ session.date }} </td>
+                            <td> {{ session.start_time }} </td>
+                            <td> {{ session.end_time }} </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="7">
+                        <p> No past bookngs. </p>
+                    </td>   
+                </tr>
+                {% endif %}
+            </table>
+        </div>
     </div>
-    <h2>Past Bookings</h2>
-    <table id="object_list_table" class="table table-striped object_list_table">
-            <tr>
-                <td> Student </td>
-                <td> Advisor </td>
-                <td> Date </td>
-                <td> From </td>
-                <td> To </td>
-                <td> Location </td>
-                <td>  </td>
-            </tr>
-            {% if pastSessions %}
-                {% for session in pastSessions %}
-                    <tr>
-                        <td> {{ session.student_id }} </td>
-                        <td> {{ session.staff_id }} </td>
-                        <td> {{ session.date }} </td>
-                        <td> {{ session.start_time }} </td>
-                        <td> {{ session.end_time }} </td>
-                        <td> {{ session.location }} </td>
-                    </tr>
-                {% endfor %}
-            {% else %}
-            <tr>
-                <td>
-                    <p> No past bookngs. </p>
-                </td>   
-            </tr>
-            {% endif %}
-        </table>
-    </div>
-{% endblock %}
-
-<!doctype html>
-<html lang="en">
-
-
-    <body style = "text-align:center">
-        <style>
-             @import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Prata&display=swap');
-               h1{
-                   font-family: 'Prata', serif;
-                   font-size: 40px;
-                   font-weight: bold; 
-               }
-
-               input{
-                        background-color: #f53245;
-                        color: white;
-                        font-weight: bold;
-                        text-align: center;
-                        width: 200px;
-                        height: 50px;
-                        border: none;
-                        border-radius: 4px;
-                    }
-        </style>
-
-
-
-
-        <h1><a style = "color:rgb(245, 55, 70)"> Booking page</a></h1><br/>
-        <input id="date" type="date" value="2019-01-01">
-
-    </body>
-</html>
-
-
+    {% endblock %}
 {% endblock %}
