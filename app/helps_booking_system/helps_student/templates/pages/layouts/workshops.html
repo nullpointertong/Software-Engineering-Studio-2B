@@ -3,14 +3,14 @@
 
 {% block extra_head %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/student-workshops.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/student-workshops.css' %}?version=3">
     <!--Prepare to pass workshop context to external js-->
     <script>
         var workshops_js = "{{ workshops_for_js|escapejs }}";
         var workshop_skillsets = "{{ workshops_skills_js|escapejs }}";
         var workshop_to_register;
     </script>
-    <script src="{% static 'js/student-workshops.js' %}"></script>
+    <script src="{% static 'js/student-workshops.js' %}?version=2"></script>
 {% endblock %}
 
 {% block content %}
@@ -131,5 +131,5 @@
             <td colspan="10">There are currently no available Workshops.</td>
         </tr>
     {% endif %}
-</table>
+</table>            
 {% endblock %}

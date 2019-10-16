@@ -135,7 +135,7 @@ class Workshop(models.Model):
 
 class Message(models.Model):
     message_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    heading = models.CharField(max_length=500, default="")#
+    heading = models.CharField(max_length=500, default="")
     body = models.CharField(max_length=40000)
     program =  models.CharField(max_length=100)
  
