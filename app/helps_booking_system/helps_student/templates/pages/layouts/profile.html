@@ -1,49 +1,70 @@
+{% extends "pages/layouts/base.html" %}
 
-<p>{% extends "pages/layouts/base.html" %} {% block content %}</p>
-<h1 style="text-align: center">Profile page</h1>
-<br />
-<p style="text-align: center">This page displays your profile. Please update it whenever necessary (especially your contact details).
-<br />Questions marked with an asterisk (*) are compulsory. </p>
-<br />
-
-<style> 
-.topright {
-  position: absolute;
-  top: 277px;
-  right: 400px;
-  font-size: 18px;
+{% block content %}
 
 
-}
+<!doctype html>
+<html lang="en">
+
+    <style> 
+        
+    @import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Prata&display=swap');
+        h1{
+            font-family: 'Prata', serif;
+            font-size: 40px;
+            font-weight: bold; 
+            }
+
+        input[type=submit] {
+            background-color: #f53245;
+                        color: white;
+                        font-weight: bold;
+                        text-align: center;
+                        width: 200px;
+                        height: 50px;
+                        border: none;
+                        border-radius: 4px;
+        }
+      
+    </style>
+        
+        <div>
+            <img  height = 300px width = 1800px src= "https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-red-gradient-triangle-polygon-banner-background-design-pagetrianglepolygondiamondtechnologygeometricscience-and-technologyhigh-image_57253.jpg">
+
+        </div>
+
+        <h1 style="text-align: center" ><a style="color:rgb(245, 55, 70)">Profile page</a></h1><br/>
+        <h5 style="text-align: center">This page displays your profile. Please update it whenever necessary (especially your contact details).
+            <br/>Questions marked with an asterisk (*) are compulsory.</h5><br/><br/><br/>
+
+    <body style = "text-align:center">
+
+    <!-- CSS Posiitioning Code -->
+
+        <form method = "post" action = "/accounts/submit_profile/">
+
+    
 
 
-</style>
-
-<!-- CSS Posiitioning Code -->
-
-<form method = "post" action = "/accounts/submit_profile/">
-
-    {%  csrf_token %}
-    {{form.p}}
-
-<p>
     Student First Name:&nbsp;
     <input type="text" value="" name = "student_first_name"/>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-    Student Last Name:&nbsp;
-    <input type="text" value="" name = "student_last_name"/></p>
-
-<p>
     Preferred First Name:&nbsp;
     <input type="text" value="" name = "student_preferred_first_name"/>
-    &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp;<br/><br/>
+    
+
+
+    
     Preferred Last Name:&nbsp;
-    <input type="text" value="" name = "student_preferred_last_name"/></p>
+    <input type="text" value="" name = "student_preferred_last_name"/>
+    Student Last Name:&nbsp;
+    <input type="text" value="" name = "student_last_name"/><br/><br/>
 
 
-<p>Student ID:&nbsp;
+    Student ID:&nbsp;
     <input type="text" value="" name = "student_id" required/>
-</p>
+
 
 <p>Faculty:&nbsp;
     <select name = "student_faculty">
@@ -570,8 +591,9 @@
 
 
 <form>
-<div class="topright"> <p>Educational Backgound:</p>
-            <table border="0">
+<div > 
+    <p>Educational Backgound:</p>
+            <table border="0" >
             <tbody><tr>
                 <td><input type="Checkbox" id="ckbHSC" name="ckbHSC" value="1" onclick="toggle('ckbHSC', 'txtHSC_mark')" checked="">HSC</td>
                 <td id="txtHSC_mark">Mark <input type="Text" name="txtHSC_mark" value="" size="5"></td>
@@ -614,15 +636,19 @@
 <input type="Submit" name="btnUpdate" value="Update" id="btnUpdate">
 <br/>
 <br/>
-<p>When you submit your writing to us, we would like to use it (after removing any of your personal details) for educational or research purposes. 
-    <br/>Is this okay with you?
+<h5>When you submit your writing to us, we would like to use it (after removing any of your personal details) for educational or research purposes. 
+    <br/>Is this okay with you?</h5>
         Yes <input type="Radio" name="privacy_approval" value="1" checked="">
         No <input type="Radio" name="privacy_approval" value="0"> <br>
-    <br/>UTS  is committed to privacy. For more information, please visit <a href="http://www.uts.edu.au/about-uts/uts-governance/privacy" target="_blank">Privacy at UTS</a>.
-</p>
+    <br/>UTS  is committed to privacy. For more information, please visit <a href="http://www.uts.edu.au/about-uts/uts-governance/privacy" target="_blank">Privacy at UTS</a><br/><br/><br/>
+
 
 </form> 
 
 
 
-<p>{% endblock %}</p>
+
+</body>
+</html>
+
+{% endblock %}
