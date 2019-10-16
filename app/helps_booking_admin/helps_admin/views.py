@@ -39,7 +39,7 @@ def search_sessions(request):
     if request.method == "POST":
         # Unpack and validate
         data = request.POST
-        
+
         students = StudentAccount.objects.all()
         if data['student_id']:
             students = students.filter(student_id__contains=data["student_id"])
@@ -64,7 +64,7 @@ def search_sessions(request):
             'filtered_sessions': sessions
         }
         return render(request, "pages/layouts/sessions.html", context)
-    
+
     sesid = request.GET.get('sessionid', None)
     if sesid is None:
         context = {
@@ -166,7 +166,7 @@ def edit_session(request):
         context['next_month'] = next_month(selected_date)
 
         context['default_location'] = data['req_location']
-        
+
         student_query = data['req_student_id']
         advisor_query = data['req_advisor_id']
 
@@ -263,7 +263,7 @@ def create_session(request):
         context['next_month'] = next_month(selected_date)
 
         context['default_location'] = data['req_location']
-        
+
         student_query = data['req_student_id']
         advisor_query = data['req_advisor_id']
 
@@ -359,7 +359,6 @@ def create_session(request):
         context['time_selection_visible'] = 'block'
         return render(request, 'pages/layouts/create_session.html', context)
 
-        
 def message(request):
 
     if request.method == "POST":
@@ -371,7 +370,7 @@ def message(request):
         context['default_heading'] = data['textheading1']
         context['default_body'] = data['textarea']
         context['default_program'] = data['message_dropdown']
-      
+
         if data['confirm_message'] == 'yes':
             new_ws = Message.objects.create(
                 heading=data['textheading1'],
@@ -384,7 +383,7 @@ def message(request):
             return render(request, 'pages/layouts/message.html', context)
 
         return render(request, 'pages/layouts/message.html', context)
-   
+
 
 def delete_session(request):
     if request.method == 'POST':
@@ -477,7 +476,7 @@ def next_month(d):
 def workshops(request):
     context = {'workshops_page': 'active'}
     workshop_list = Workshop.objects.all()
-    
+
     if request.method == "POST":
         data = request.POST
         staff = StaffAccount.objects.filter(staff_id=data['advisor_id'])
@@ -538,7 +537,7 @@ def create_workshop(request):
         context['next_month'] = next_month(selected_date)
 
         context['default_location'] = data['req_location']
-        
+
         advisor_query = data['req_advisor_id']
 
         if advisor_query.isdigit():
@@ -632,7 +631,7 @@ def advisors(request):
             last_name__contains=data['last_name'],
             faculty__contains=data['faculty'],
         )
-    else:   
+    else:
         advisorid = request.GET.get('advisorid', None)
         if advisorid is not None:
             advisor_list = advisor_list.filter(staff_id=advisorid)
@@ -667,9 +666,10 @@ def create_advisor(request):
             Afirst_language = request.POST.get("first_language")
             Acountry_of_origin = request.POST.get("country_of_origin")
             Aeducational_background = request.POST.get("educational_background")
-                
+
+
             staff_account = StaffAccount.objects.create(
-            staff_id = Astaff_id, 
+            staff_id = Astaff_id,
             first_name = Afirst_name,
             last_name = Alast_name,
             email = Aemail,
@@ -704,7 +704,7 @@ def students(request):
             last_name__contains=data['last_name'],
             faculty__contains=data['faculty'],
         )
-    else:   
+    else:
         studentid = request.GET.get('studentid', None)
         if studentid is not None:
             student_list = student_list.filter(student_id=studentid)
@@ -745,4 +745,13 @@ def redirect_view(request, path=''):
     response = redirect(path)
     return response
 
+def search_reports(request, path=''):
+    if request.method == 'POST':
+        start_time = request.POST.get('start_time', None)
+        end_time = request.POST.get('end_time', None)
+        sessions = Session.objects.all()
+        workshops = Workshop.objects.all()
+        session_list = [ x for x in sessions if x.start_time >= datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S') and x.end_time <= datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S') ]
+        workshop_list = [ x for x in workshops if datetime.combine(x.start_date, x.start_time) >= datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S') and datetime.combine(x.end_date, x.end_time) <= datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S')]
 
+        return render(request, 'pages/Ajax/reports_results.html', {'sessions': session_list, 'workshops': workshop_list})
