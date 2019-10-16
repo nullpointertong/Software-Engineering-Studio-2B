@@ -1,0 +1,81 @@
+{% extends "pages/layouts/base.html" %}
+
+{% block content %}
+<form method = "POST" action = "">
+
+    {%  csrf_token %}
+    {{form.p}}
+
+<p align="centre">
+    Staff ID:&nbsp;
+    <input type="text" value="" name = "staff_id"/>
+
+<p align="centre">
+    First Name:&nbsp;
+    <input type="text" value="" name = "first_name"/>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    Last Name:&nbsp;
+    <input type="text" value="" name = "last_name" /></p>
+
+
+<p>Email:&nbsp;
+    <input type="text" value="" name = "email" required/>
+</p>
+
+<p>Faculty:&nbsp;
+    <select name = "faculty">
+    <option value="Biologyisn'treal">Biologyisn'treal</option>
+    <option value="FEIT">FEIT</option>
+    <option value="A">A</option>
+    <option value="jeff">jeff</option>
+  </select>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    Course:&nbsp;
+    <input type="text" value="" name = "course"/></p>
+<p>Session History:&nbsp;<input type="date" value="" name = "session_history"/>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;
+    Phone:&nbsp;
+    <input type="tel" value="" name = "phone"/></p>
+<p>Mobile:&nbsp;
+    <input type="tel" value="" name = "mobile" />
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; 
+    Best Contact no*:<input type="tel" value="" name = "best_contact_no" required/></p>
+<p>DOB:&nbsp;
+    <input type="date" value="" name = "DOB"/>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;
+    Gender:&nbsp;
+    <select name = "gender">
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+    </select>
+    </p>
+<p>Degree*:&nbsp;
+    <input type="Degree" value="" name = "degree"/>
+    </p>
+
+<p>Status*:&nbsp;
+    <select name = "status" required>
+            <option value="Permanent">Permanent</option>
+            <option value="International">International</option>
+    </select>
+</p>
+
+<p>First Language:&nbsp;
+    <input type="Degree" value="" name = "first_language"/>
+</p>
+
+<p>Country of Origin:&nbsp;
+    <input type="Degree" value="" name = "country_of_origin"/>
+</p>
+
+<p>Educational Background:&nbsp;
+    <input type="Degree" value="" name = "educational_background"/>
+</p>
+
+<input type="Submit" name="btnUpdate" value="Update" id="btnUpdate" onclick=""/>
+</form>
+
+</body>
+{% endblock %} 
+

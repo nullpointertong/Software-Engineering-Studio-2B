@@ -111,7 +111,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -119,8 +119,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "helps_admin/static"),
     '/var/www/static/',
     'http://static.example.com/'
 ]
+
+# Email settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'softwarestudio2ab@gmail.com'
+EMAIL_HOST_PASSWORD = 'test1234$#@!'

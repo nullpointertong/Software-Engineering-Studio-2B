@@ -1,0 +1,58 @@
+
+<div class="col-sm-6">
+    <h4>Sessions</h4>
+    <table id="session_table" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Advisor</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for session in sessions %}
+            <tr>
+                <td> {{ session.student }} </td>
+                <td> {{ session.staff }} </td>
+                <td> {{ session.start_time }} </td>
+                <td> {{ session.end_time }} </td>
+                <td> {{ session.location }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col-sm-6">
+    <h4>Workshops</h4>
+    <table id="workshops_table" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <td> Title </td>
+                <td> Skill Set </td>
+                <td> Advisor </td>
+                <td> Start </td>
+                <td> Finish </td>
+                <td> Files </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workshop in workshops %}
+            <tr>
+                <td> {{ workshop.title }} </td>
+                <td> {{ workshop.skill_set_name }} </td>
+                <td> {{ workshop.staff }} </td>
+                <td> {{ workshop.start_time }} </td>
+                <td> {{ workshop.end_time }} </td>
+                <td> {{ workshop.workshop_files }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $("#session_table").DataTable({searching: false, paging: false, info: false});
+    $("#workshops_table").DataTable({searching: false, paging: false, info: false});
+</script>
