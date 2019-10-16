@@ -32,6 +32,7 @@
 <table style="width:100%">
     <tr>
         <th>Topic</th>
+        <th>Days</th>
         <th>Start Time</th>
         <th>End Time</th>
         <th>Room</th>
@@ -41,6 +42,7 @@
         {% for workshop in enr_workshops %}    
             <tr>
                 <td>{{ workshop.skill_set_name }}</td>
+                <td>{{ workshop.days }}</td>
                 <td>{{ workshop.start_time }}</td>
                 <td>{{ workshop.end_time }}</td>
                 <td>{{ workshop.room }}</td>
@@ -55,7 +57,7 @@
         {% endfor %}
     {% else %}
         <tr>
-            <td colspan="5">You are currently not enrolled in any workshops.</td>
+            <td colspan="6">You are currently not enrolled in any workshops.</td>
         </tr>
     {% endif %}
 </table>
