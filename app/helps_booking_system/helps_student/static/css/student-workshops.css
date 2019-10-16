@@ -1,3 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Prata&display=swap');
+
+body {
+    text-align: center;
+}
+
+input, button {
+    background-color: #f53245;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 4px;
+}
+
+input:hover, button:hover,
+input:focus, button:focus {
+    background-color: rgb(255, 119, 119);
+}
+
+input:active, button:active {
+    background-color: rgb(163, 35, 35);
+    cursor: pointer;
+}
+
 .applied_filters h6 {
     color: red;
 }
@@ -16,14 +43,17 @@
 }
 
 .modal-content {
+    display: inline-block;
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 45%;
+    text-align: center;
 }
 
 .close {
+    text-align: right;
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -39,9 +69,8 @@
 
 .modalRegister {
     border: none;
-    background-color: rgb(207, 68, 68);
+    background-color: #f53245;
     color: white;
-    display: inline-block;
     font-size: 24px;
     font-weight: bold;
 }
@@ -59,7 +88,7 @@
     cursor: pointer;
 }
 
-h2:before, h6:before, span:before {
+h2:before, h6:before, span:before, table:before {
     content: "\00a0 ";
 }
 
@@ -79,5 +108,12 @@ tr:nth-child(odd) {
 }
 
 tr:hover {
-    background-color: rgb(235, 235, 235);
+    background-color: rgb(255, 213, 213);
+}
+
+h2 {
+    font-family: 'Prata', serif;
+    font-size: 40px;
+    font-weight: bold;
+    color: rgb(245, 55, 70);
 }

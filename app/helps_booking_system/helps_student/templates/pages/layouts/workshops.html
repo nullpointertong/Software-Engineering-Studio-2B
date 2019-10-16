@@ -3,14 +3,14 @@
 
 {% block extra_head %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/student-workshops.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/student-workshops.css' %}?version=3">
     <!--Prepare to pass workshop context to external js-->
     <script>
         var workshops_js = "{{ workshops_for_js|escapejs }}";
         var workshop_skillsets = "{{ workshops_skills_js|escapejs }}";
         var workshop_to_register;
     </script>
-    <script src="{% static 'js/student-workshops.js' %}"></script>
+    <script src="{% static 'js/student-workshops.js' %}?version=2"></script>
 {% endblock %}
 
 {% block content %}
@@ -131,68 +131,5 @@
             <td colspan="10">There are currently no available Workshops.</td>
         </tr>
     {% endif %}
-</table>
-
-<!doctype html>
-<html lang="en">
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Prata&display=swap');
-                   h1{
-                       font-family: 'Prata', serif;
-                       font-size: 40px;
-                       font-weight: bold; 
-                        }
-
-                   input{
-                        background-color: #f53245;
-                        color: white;
-                        font-weight: bold;
-                        text-align: center;
-                        width: 200px;
-                        height: 50px;
-                        border: none;
-                        border-radius: 4px;
-                    }
-       </style>
-
-        <div class="wrapper">
-            <a href="https://pngtree.com/freebackground/red-gradient-triangle-polygon-banner-background-design_936965.html">
-                {%load static%}
-                <img  height = 300px width = 1800px src= "https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-red-gradient-triangle-polygon-banner-background-design-pagetrianglepolygondiamondtechnologygeometricscience-and-technologyhigh-image_57253.jpg">
-            </a>
-         </div>
-
-    <body style = "text-align:center">
-        <h1><a style = "color: rgb(245, 55, 70)">Workshop Registration page</a></h1><br/><br/> <br/>  
-            <h5>Search for Workshops on a specific date</h5><br/>  
-                <input id="date" type="date" value="2019-01-01" > <br/>  <br/>  
-                    <h5>Search all Workshops</h5><br/>  
-                        <table style="width:100%">
-                            <tr>
-                                <th>Topics</th>
-                                <th>Start Date</th>
-                                <th>Finish Date</th>
-                                <th>Days</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>No. Sessions</th>
-                                <th>Places Avail.</th>
-                                <th>Details</th>
-                            </tr>
-                            <tr>
-                                <td>Introduction to Django</td>
-                                <td>10/04/2019</td>
-                                <td>10/04/2019</td>
-                                <td>Wed</td>
-                                <td>1200</td>
-                                <td>1400</td>
-                                <td>1</td>
-                                <td>50</td>
-                                <td>Details</td>
-                            </tr>
-
-                        </table>
-    </body>
-</html>
-
+</table>            
 {% endblock %}
